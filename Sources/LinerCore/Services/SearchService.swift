@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-@MainActor public final class SearchService: ObservableObject {
+@MainActor public public final class SearchService: ObservableObject {
     static let shared = SearchService()
 
     @Published private(set) var searchResults: SearchResults = SearchResults()

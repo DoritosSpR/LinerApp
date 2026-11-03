@@ -25,6 +25,7 @@ extension Color {
     static let linerGlassHeavy = Color.white.opacity(0.25)
     static let linerGradientPrimary = LinearGradient(colors: [.linerPrimary, .linerAccent], startPoint: .topLeading, endPoint: .bottomTrailing)
     static let linerGradientSurface = LinearGradient(colors: [.linerSurface, .linerSurfaceElevated], startPoint: .top, endPoint: .bottom)
+    static let linerGradientBackground = LinearGradient(colors: [.linerBackground, .linerSurface], startPoint: .top, endPoint: .bottom)
 }
 
 // MARK: - GlassMorphism
@@ -51,6 +52,8 @@ extension Font {
     static let linerCaption1 = Font.system(.caption, design: .rounded)
     static let linerCaption2 = Font.system(.caption2, design: .rounded)
     static let linerMonoCaption = Font.system(.caption, design: .monospaced)
+    static let linerMonoBody = Font.system(.body, design: .monospaced)
+    static let linerFootnote = Font.system(.footnote, design: .rounded)
     static func linerWeighted(_ style: Font.TextStyle, weight: Font.Weight = .regular) -> Font { Font.system(style, design: .rounded).weight(weight) }
 }
 
@@ -65,6 +68,7 @@ extension Animation {
     static let linerSpring = Animation.spring(response: 0.4, dampingFraction: 0.8)
     static let linerSpringFast = Animation.spring(response: 0.3, dampingFraction: 0.7)
     static let linerEaseOut = Animation.easeOut(duration: 0.2)
+    static let linerEaseInOut = Animation.easeInOut(duration: 0.2)
     static let linerQuick = Animation.easeInOut(duration: 0.15)
 }
 
@@ -83,12 +87,16 @@ enum LinerHaptic {
     static func medium() { UIImpactFeedbackGenerator(style: .medium).impactOccurred() }
     static func heavy() { UIImpactFeedbackGenerator(style: .heavy).impactOccurred() }
     static func selection() { UISelectionFeedbackGenerator().selectionChanged() }
+    static func success() { UINotificationFeedbackGenerator().notificationOccurred(.success) }
+    static func warning() { UINotificationFeedbackGenerator().notificationOccurred(.warning) }
+    static func error() { UINotificationFeedbackGenerator().notificationOccurred(.error) }
 }
 
 // MARK: - Gradient
 extension Color {
     static let linerGradientPrimary = LinearGradient(colors: [.linerPrimary, .linerAccent], startPoint: .topLeading, endPoint: .bottomTrailing)
     static let linerGradientSurface = LinearGradient(colors: [.linerSurface, .linerSurfaceElevated], startPoint: .top, endPoint: .bottom)
+    static let linerGradientBackground = LinearGradient(colors: [.linerBackground, .linerSurface], startPoint: .top, endPoint: .bottom)
 }
 
 // MARK: - GlassMorphism
@@ -117,12 +125,16 @@ enum LinerHaptic {
     static func medium() { UIImpactFeedbackGenerator(style: .medium).impactOccurred() }
     static func heavy() { UIImpactFeedbackGenerator(style: .heavy).impactOccurred() }
     static func selection() { UISelectionFeedbackGenerator().selectionChanged() }
+    static func success() { UINotificationFeedbackGenerator().notificationOccurred(.success) }
+    static func warning() { UINotificationFeedbackGenerator().notificationOccurred(.warning) }
+    static func error() { UINotificationFeedbackGenerator().notificationOccurred(.error) }
 }
 
 // MARK: - Gradient
 extension Color {
     static let linerGradientPrimary = LinearGradient(colors: [.linerPrimary, .linerAccent], startPoint: .topLeading, endPoint: .bottomTrailing)
     static let linerGradientSurface = LinearGradient(colors: [.linerSurface, .linerSurfaceElevated], startPoint: .top, endPoint: .bottom)
+    static let linerGradientBackground = LinearGradient(colors: [.linerBackground, .linerSurface], startPoint: .top, endPoint: .bottom)
 }
 
 // MARK: - GlassMorphism
@@ -151,4 +163,45 @@ enum LinerHaptic {
     static func medium() { UIImpactFeedbackGenerator(style: .medium).impactOccurred() }
     static func heavy() { UIImpactFeedbackGenerator(style: .heavy).impactOccurred() }
     static func selection() { UISelectionFeedbackGenerator().selectionChanged() }
+    static func success() { UINotificationFeedbackGenerator().notificationOccurred(.success) }
+    static func warning() { UINotificationFeedbackGenerator().notificationOccurred(.warning) }
+    static func error() { UINotificationFeedbackGenerator().notificationOccurred(.error) }
+}
+
+// MARK: - Gradient
+extension Color {
+    static let linerGradientPrimary = LinearGradient(colors: [.linerPrimary, .linerAccent], startPoint: .topLeading, endPoint: .bottomTrailing)
+    static let linerGradientSurface = LinearGradient(colors: [.linerSurface, .linerSurfaceElevated], startPoint: .top, endPoint: .bottom)
+    static let linerGradientBackground = LinearGradient(colors: [.linerBackground, .linerSurface], startPoint: .top, endPoint: .bottom)
+}
+
+// MARK: - GlassMorphism
+struct GlassMorphism: ViewModifier {
+    enum Intensity { case light, medium, heavy }
+    let intensity: Intensity
+    func body(content: Content) -> some View {
+        let material: Material = intensity == .light ? .ultraThinMaterial : intensity == .medium ? .thinMaterial : .regularMaterial
+        content.background(material)
+    }
+}
+extension View { func glassMorphism(_ intensity: GlassMorphism.Intensity = .medium) -> some View { modifier(GlassMorphism(intensity: intensity)) } }
+
+// MARK: - Shadow
+struct LinerShadow { let color: Color; let radius: CGFloat; let x: CGFloat; let y: CGFloat
+    static let small = LinerShadow(color: .black.opacity(0.05), radius: 4, x: 0, y: 2)
+    static let medium = LinerShadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+    static let large = LinerShadow(color: .black.opacity(0.15), radius: 16, x: 0, y: 8)
+}
+extension View { func linerShadow(_ shadow: LinerShadow = .medium) -> some View { self.shadow(color: shadow.color, radius: shadow.radius, x: shadow.x, y: shadow.y) } }
+
+// MARK: - Haptics
+@MainActor
+enum LinerHaptic {
+    static func light() { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+    static func medium() { UIImpactFeedbackGenerator(style: .medium).impactOccurred() }
+    static func heavy() { UIImpactFeedbackGenerator(style: .heavy).impactOccurred() }
+    static func selection() { UISelectionFeedbackGenerator().selectionChanged() }
+    static func success() { UINotificationFeedbackGenerator().notificationOccurred(.success) }
+    static func warning() { UINotificationFeedbackGenerator().notificationOccurred(.warning) }
+    static func error() { UINotificationFeedbackGenerator().notificationOccurred(.error) }
 }
