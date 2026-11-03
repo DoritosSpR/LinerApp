@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-@MainActor final class MusicLibrary: ObservableObject {
+@MainActor @MainActor final class MusicLibrary: ObservableObject {
     static let shared = MusicLibrary()
 
     @Published private(set) var tracks: [Track] = []
@@ -132,7 +132,7 @@ import Combine
     func toggleFavorite(_ track: Track) {
         if let index = favorites.firstIndex(where: { $0.id == track.id }) {
             favorites.remove(at: index)
-            var updatedTrack = track
+            _ = track
             // Can't mutate, need to create new - handled in UI
         } else {
             favorites.insert(track, at: 0)
