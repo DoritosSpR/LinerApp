@@ -19,12 +19,11 @@ jobs:
       
       - name: Build IPA
         run: |
-          cd LinerApp
           xtool dev build --ipa
       
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
           name: LinerApp.ipa
-          path: LinerApp/.build/**/*.ipa
+          path: .build/**/*.ipa
           retention-days: 30
