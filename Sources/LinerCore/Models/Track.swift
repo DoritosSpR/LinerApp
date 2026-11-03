@@ -2,75 +2,59 @@ import Foundation
 
 public struct Track: Identifiable, Codable, Hashable {
     public let id: String
-    let title: String
-    let artist: Artist
-    let album: Album?
-    let duration: TimeInterval
-    let artworkURL: URL?
-    let audioURL: URL?
-    let source: TrackSource
-    let lyrics: Lyrics?
-    let playCount: Int
-    let isFavorite: Bool
-    let dateAdded: Date
-
-    var formattedDuration: String {
-        let minutes = Int(duration) / 60
-        let seconds = Int(duration) % 60
-        return String(format: "%d:%02d", minutes, seconds)
-    }
-}
-
-enum TrackSource: String, Codable {
-    case local
-    case youtube
-    case soundcloud
-    case bandcamp
-    case appleMusic = "apple_music"
+    public let title: String
+    public let artist: Artist
+    public let album: Album?
+    public let duration: TimeInterval?
+    public let artworkURL: URL?
+    public let audioURL: URL?
+    public let lyrics: Lyrics?
+    public let trackNumber: Int?
+    public let discNumber: Int?
+    public let isExplicit: Bool
+    public let isFavorite: Bool
+    public let dateAdded: Date
 }
 
 public struct Artist: Identifiable, Codable, Hashable {
     public let id: String
-    let name: String
-    let artworkURL: URL?
-    let genres: [String]
+    public let name: String
+    public let artworkURL: URL?
+    public let genres: [String]
+    public let biography: String?
 }
 
 public struct Album: Identifiable, Codable, Hashable {
     public let id: String
-    let title: String
-    let artist: Artist
-    let artworkURL: URL?
-    let releaseDate: Date?
-    let trackCount: Int
+    public let title: String
+    public let artist: Artist
+    public let artworkURL: URL?
+    public let releaseDate: Date?
+    public let trackCount: Int
+    public let genre: String?
 }
 
 public struct Lyrics: Codable, Hashable {
-    let synced: [SyncedLine]?
-    let plain: String?
-    let language: String?
-
-    var hasSyncedLyrics: Bool {
-        synced != nil && !(synced?.isEmpty ?? true)
-    }
+    public let lines: [SyncedLine]
+    public let isSynced: Bool
 }
 
 public struct SyncedLine: Identifiable, Codable, Hashable {
-    public let id = UUID()
-    let time: TimeInterval
-    let text: String
-    let syllables: [Syllable]?
-
-    var formattedTime: String {
-        let minutes = Int(time) / 60
-        let seconds = Int(time) % 60
-        let milliseconds = Int((time.truncatingRemainder(dividingBy: 1)) * 100)
-        return String(format: "%d:%02d.%02d", minutes, seconds, milliseconds)
+    public let id: UUID
+    public let time: TimeInterval
+    public let text: String
+    public let syllables: [Syllable]?
+    
+    public init(id: UUID = UUID(), time: TimeInterval, text: String, syllables: [Syllable]? = nil) {
+        self.id = id
+        self.time = time
+        self.text = text
+        self.syllables = syllables
     }
 }
 
 public struct Syllable: Codable, Hashable {
-    let text: String
-    let startTime: TimeInterval
-    let endTime: TimeInterval
+    public let text: String
+    public let startTime: TimeInterval
+    public let duration: TimeInterval
 }

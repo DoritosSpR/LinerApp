@@ -5,16 +5,10 @@ struct PrimaryButton: View {
     init(_ title: String, icon: String? = nil, fullWidth: Bool = true, isLoading: Bool = false, isDisabled: Bool = false, action: @escaping () -> Void) { self.title = title; self.icon = icon; self.fullWidth = fullWidth; self.isLoading = isLoading; self.isDisabled = isDisabled; self.action = action }
     var body: some View {
         Button(action: { if !isLoading && !isDisabled { UIImpactFeedbackGenerator(style: .light).impactOccurred(); action() } }) {
-            HStack(spacing: LinerSpacing.sm) {
-                if isLoading { ProgressView().tint(.linerTextInverse) } else if let icon = icon { Image(systemName: icon) }
-                Text(title).font(.linerSubheadline.weight(.semibold))
-            }
-            .foregroundColor(.linerTextInverse)
-            .frame(maxWidth: fullWidth ? .infinity : nil)
-            .padding(.vertical, LinerSpacing.md)
+            HStack(spacing: LinerSpacing.sm) { if isLoading { ProgressView().tint(.linerTextInverse) } else if let icon = icon { Image(systemName: icon) }; Text(title).font(.linerSubheadline.weight(.semibold)) }
+            .foregroundColor(.linerTextInverse).frame(maxWidth: fullWidth ? .infinity : nil).padding(.vertical, LinerSpacing.md)
             .background(isDisabled ? Color.linerPrimary.opacity(0.5) : Color.linerGradientPrimary)
-            .clipShape(RoundedRectangle(cornerRadius: LinerRadius.full))
-            .opacity(isDisabled ? 0.7 : 1.0).scaleEffect(isLoading ? 0.98 : 1.0).animation(.linerSpringFast, value: isLoading)
+            .clipShape(RoundedRectangle(cornerRadius: LinerRadius.full)).opacity(isDisabled ? 0.7 : 1.0).scaleEffect(isLoading ? 0.98 : 1.0).animation(.spring(response: 0.3, dampingFraction: 0.7), value: isLoading)
         }.disabled(isLoading || isDisabled).buttonStyle(PlainButtonStyle())
     }
 }
@@ -27,7 +21,7 @@ struct SecondaryButton: View {
             HStack(spacing: LinerSpacing.sm) { if isLoading { ProgressView().tint(.linerPrimary) } else if let icon = icon { Image(systemName: icon) }; Text(title).font(.linerSubheadline.weight(.medium)) }
             .foregroundColor(.linerPrimary).frame(maxWidth: fullWidth ? .infinity : nil).padding(.vertical, LinerSpacing.md)
             .background(Color.linerSurface).overlay(RoundedRectangle(cornerRadius: LinerRadius.full).stroke(Color.linerPrimary, lineWidth: 1.5)).clipShape(RoundedRectangle(cornerRadius: LinerRadius.full))
-            .opacity(isDisabled ? 0.5 : 1.0).animation(.linerSpringFast, value: isLoading)
+            .opacity(isDisabled ? 0.5 : 1.0).animation(.spring(response: 0.3, dampingFraction: 0.7), value: isLoading)
         }.disabled(isLoading || isDisabled).buttonStyle(PlainButtonStyle())
     }
 }
@@ -54,7 +48,7 @@ struct IconButton: View {
         switch variant {
         case .primary: return Circle().fill(isActive ? Color.linerPrimary : Color.linerSurface)
         case .secondary: return Circle().fill(Color.linerSurface).overlay(Circle().stroke(Color.linerBorder, lineWidth: 1))
-        case .glass: return Circle().fill(Color.linerGlassMedium)
+        case .glass: return Circle().fill(Color.white.opacity(0.15))
         case .plain: return Circle().fill(Color.clear)
         }
     }
@@ -66,7 +60,7 @@ struct PlaybackButton: View {
     var body: some View {
         Button(action: { if !isLoading && !isDisabled { UIImpactFeedbackGenerator(style: .medium).impactOccurred(); action() } }) {
             if isLoading { ProgressView().tint(.linerTextInverse).frame(width: size, height: size) } else { Image(systemName: systemName).font(.system(size: size * 0.5, weight: .medium)).foregroundColor(.linerTextInverse) }
-        }.frame(width: size, height: size).background(Color.linerPrimary).clipShape(Circle()).opacity(isDisabled ? 0.5 : 1.0).scaleEffect(isLoading ? 0.9 : 1.0).animation(.linerSpringFast, value: isLoading).disabled(isLoading || isDisabled).buttonStyle(PlainButtonStyle())
+        }.frame(width: size, height: size).background(Color.linerPrimary).clipShape(Circle()).opacity(isDisabled ? 0.5 : 1.0).scaleEffect(isLoading ? 0.9 : 1.0).animation(.spring(response: 0.3, dampingFraction: 0.7), value: isLoading).disabled(isLoading || isDisabled).buttonStyle(PlainButtonStyle())
     }
 }
 
@@ -76,7 +70,7 @@ struct ToggleButton: View {
     var body: some View {
         Button(action: { UIImpactFeedbackGenerator(style: .selection).selectionChanged(); action(); isOn.toggle() }) {
             Image(systemName: isOn ? (activeName ?? systemName) : systemName).font(.linerSubheadline).foregroundColor(isOn ? .linerPrimary : .linerTextTertiary)
-                .frame(width: 40, height: 40).background(Circle().fill(isOn ? Color.linerPrimary.opacity(0.15) : Color.linerSurface)).overlay(Circle().stroke(isOn ? Color.linerPrimary : Color.linerBorder, lineWidth: isOn ? 0 : 1)).scaleEffect(isOn ? 1.1 : 1.0).animation(.linerSpringFast, value: isOn)
+                .frame(width: 40, height: 40).background(Circle().fill(isOn ? Color.linerPrimary.opacity(0.15) : Color.linerSurface)).overlay(Circle().stroke(isOn ? Color.linerPrimary : Color.linerBorder, lineWidth: isOn ? 0 : 1)).scaleEffect(isOn ? 1.1 : 1.0).animation(.spring(response: 0.3, dampingFraction: 0.7), value: isOn)
         }.buttonStyle(PlainButtonStyle())
     }
 }
