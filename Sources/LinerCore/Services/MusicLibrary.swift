@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 @MainActor
-public final class MusicLibrary: ObservableObject {
+public public final class MusicLibrary: ObservableObject {
     public static let shared = MusicLibrary()
     
     @Published public private(set) var tracks: [Track] = []
