@@ -5,7 +5,7 @@ import Combine
 import UIKit
 
 @MainActor
-public public final class AudioPlayer: ObservableObject {
+public final class AudioPlayer: ObservableObject {
     static let shared = AudioPlayer()
     
     @Published private(set) var currentTrack: Track?
