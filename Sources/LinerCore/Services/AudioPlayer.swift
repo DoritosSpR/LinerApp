@@ -2,6 +2,7 @@ import Foundation
 import AVFoundation
 import MediaPlayer
 import Combine
+import UIKit
 
 @MainActor
 final class AudioPlayer: ObservableObject {
@@ -49,24 +50,24 @@ final class AudioPlayer: ObservableObject {
     private func setupRemoteCommands() {
         let commandCenter = MPRemoteCommandCenter.shared()
         commandCenter.playCommand.addTarget { [weak self] _ in
-            self?.play()
+            Task { @MainActor in self?.play() }
             return .success
         }
         commandCenter.pauseCommand.addTarget { [weak self] _ in
-            self?.pause()
+            Task { @MainActor in self?.pause() }
             return .success
         }
         commandCenter.nextTrackCommand.addTarget { [weak self] _ in
-            self?.nextTrack()
+            Task { @MainActor in self?.nextTrack() }
             return .success
         }
         commandCenter.previousTrackCommand.addTarget { [weak self] _ in
-            self?.previousTrack()
+            Task { @MainActor in self?.previousTrack() }
             return .success
         }
         commandCenter.changePlaybackPositionCommand.addTarget { [weak self] event in
             guard let self = self, let event = event as? MPChangePlaybackPositionCommandEvent else { return .commandFailed }
-            self.seek(to: event.positionTime)
+            Task { @MainActor in self.seek(to: event.positionTime) }
             return .success
         }
     }
@@ -103,21 +104,21 @@ final class AudioPlayer: ObservableObject {
         let playerItem = AVPlayerItem(url: track.audioURL)
         player = AVPlayer(playerItem: playerItem)
         
-        // Time observer
         let interval = CMTime(seconds: 0.1, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         timeObserver = player?.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
-            guard let self = self else { return }
-            self.currentTime = time.seconds
-            self.updateNowPlayingInfo()
+            Task { @MainActor in
+                guard let self = self else { return }
+                self.currentTime = time.seconds
+                self.updateNowPlayingInfo()
+            }
         }
         
-        // End observation
         NotificationCenter.default.addObserver(
             forName: .AVPlayerItemDidPlayToEndTime,
             object: playerItem,
             queue: .main
         ) { [weak self] _ in
-            self?.nextTrack()
+            Task { @MainActor in self?.nextTrack() }
         }
         
         play()
@@ -140,8 +141,10 @@ final class AudioPlayer: ObservableObject {
     func seek(to time: TimeInterval) {
         let cmTime = CMTime(seconds: time, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         player?.seek(to: cmTime) { [weak self] _ in
-            guard let self = self else { return }
-            self.currentTime = time
+            Task { @MainActor in
+                guard let self = self else { return }
+                self.currentTime = time
+            }
         }
     }
     
