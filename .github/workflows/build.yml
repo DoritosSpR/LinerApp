@@ -17,9 +17,9 @@ jobs:
           brew trust xtool-org/tap
           brew install xtool
       
-      - name: Fix Resources path for SwiftPM
+      - name: Prepare Resources in target
         run: |
-          # SwiftPM requiere Resources dentro del target
+          # SwiftPM espera Resources dentro del target (Sources/LinerApp/Resources/)
           cp -r Resources Sources/LinerApp/
       
       - name: Build IPA

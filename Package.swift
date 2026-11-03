@@ -24,7 +24,7 @@ let package = Package(
                 "LinerFeatures",
             ],
             resources: [
-                .process("../Resources"),
+                .process("Resources"),  // ← relativo al target: Sources/LinerApp/Resources/
             ]
         ),
         .target(
