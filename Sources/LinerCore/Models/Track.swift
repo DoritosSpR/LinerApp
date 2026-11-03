@@ -1,6 +1,6 @@
 import Foundation
 
-struct Track: Identifiable, Codable, Hashable {
+public struct Track: Identifiable, Codable, Hashable {
     let id: String
     let title: String
     let artist: Artist
@@ -29,14 +29,14 @@ enum TrackSource: String, Codable {
     case appleMusic = "apple_music"
 }
 
-struct Artist: Identifiable, Codable, Hashable {
+public struct Artist: Identifiable, Codable, Hashable {
     let id: String
     let name: String
     let artworkURL: URL?
     let genres: [String]
 }
 
-struct Album: Identifiable, Codable, Hashable {
+public struct Album: Identifiable, Codable, Hashable {
     let id: String
     let title: String
     let artist: Artist
@@ -45,7 +45,7 @@ struct Album: Identifiable, Codable, Hashable {
     let trackCount: Int
 }
 
-struct Lyrics: Codable, Hashable {
+public struct Lyrics: Codable, Hashable {
     let synced: [SyncedLine]?
     let plain: String?
     let language: String?
@@ -55,7 +55,7 @@ struct Lyrics: Codable, Hashable {
     }
 }
 
-struct SyncedLine: Identifiable, Codable, Hashable {
+public struct SyncedLine: Identifiable, Codable, Hashable {
     let id = UUID()
     let time: TimeInterval
     let text: String
@@ -69,7 +69,7 @@ struct SyncedLine: Identifiable, Codable, Hashable {
     }
 }
 
-struct Syllable: Codable, Hashable {
+public struct Syllable: Codable, Hashable {
     let text: String
     let startTime: TimeInterval
     let endTime: TimeInterval

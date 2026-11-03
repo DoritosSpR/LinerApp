@@ -1,6 +1,6 @@
 import Foundation
 
-struct Playlist: Identifiable, Codable, Hashable {
+public struct Playlist: Identifiable, Codable, Hashable {
     let id: String
     let title: String
     let description: String?
@@ -24,7 +24,7 @@ struct Playlist: Identifiable, Codable, Hashable {
     }
 }
 
-struct User: Identifiable, Codable, Hashable {
+public struct User: Identifiable, Codable, Hashable {
     let id: String
     let username: String
     let displayName: String

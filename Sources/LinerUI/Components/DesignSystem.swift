@@ -1,9 +1,7 @@
 import SwiftUI
 
-// MARK: - Colors
-
+// MARK: - Colors (usan Asset Catalog)
 extension Color {
-    // Colores del asset catalog (usan Bundle.main)
     static let linerPrimary = Color("LinerPrimary")
     static let linerSecondary = Color("LinerSecondary")
     static let linerAccent = Color("LinerAccent")
@@ -21,64 +19,24 @@ extension Color {
     static let linerError = Color("LinerError")
     static let linerSuccess = Color("LinerSuccess")
     static let linerWarning = Color("LinerWarning")
-    
-    // Gradientes
-    static let linerGradientPrimary = LinearGradient(
-        colors: [.linerPrimary, .linerAccent],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
-    )
-    
-    static let linerGradientSurface = LinearGradient(
-        colors: [.linerSurface, .linerSurfaceElevated],
-        startPoint: .top,
-        endPoint: .bottom
-    )
+    static let linerGlassLight = Color.white.opacity(0.08)
+    static let linerGlassMedium = Color.white.opacity(0.15)
+    static let linerGlassHeavy = Color.white.opacity(0.25)
+    static let linerGradientPrimary = LinearGradient(colors: [.linerPrimary, .linerAccent], startPoint: .topLeading, endPoint: .bottomTrailing)
+    static let linerGradientSurface = LinearGradient(colors: [.linerSurface, .linerSurfaceElevated], startPoint: .top, endPoint: .bottom)
 }
 
 // MARK: - GlassMorphism
-
 struct GlassMorphism: ViewModifier {
+    enum Intensity { case light, medium, heavy }
     let intensity: Intensity
-    
-    enum Intensity {
-        case light, medium, heavy
-        
-        var material: Material {
-            switch self {
-            case .light: return .ultraThinMaterial
-            case .medium: return .thinMaterial
-            case .heavy: return .regularMaterial
-            }
-        }
-        
-        var opacity: Double {
-            switch self {
-            case .light: return 0.1
-            case .medium: return 0.2
-            case .heavy: return 0.3
-            }
-        }
-    }
-    
     func body(content: Content) -> some View {
-        content
-            .background(intensity.material)
-            .overlay(
-                RoundedRectangle(cornerRadius: 0)
-                    .stroke(Color.white.opacity(intensity.opacity), lineWidth: 0.5)
-            )
+        content.background(intensity == .light ? .ultraThinMaterial : intensity == .medium ? .thinMaterial : .regularMaterial)
     }
 }
-
-extension View {
-    func glassMorphism(intensity: GlassMorphism.Intensity = .medium) -> some View {
-        modifier(GlassMorphism(intensity: intensity))
-    }
-}
+extension View { func glassMorphism(_ intensity: GlassMorphism.Intensity = .medium) -> some View { modifier(GlassMorphism(intensity: intensity)) } }
 
 // MARK: - Typography
-
 extension Font {
     static let linerLargeTitle = Font.system(.largeTitle, design: .rounded).weight(.bold)
     static let linerTitle1 = Font.system(.title, design: .rounded).weight(.bold)
@@ -90,71 +48,34 @@ extension Font {
     static let linerCallout = Font.system(.callout, design: .rounded)
     static let linerCaption1 = Font.system(.caption, design: .rounded)
     static let linerCaption2 = Font.system(.caption2, design: .rounded)
-}
-
-extension Font {
-    static func linerWeighted(_ style: Font.TextStyle, weight: Font.Weight = .regular) -> Font {
-        Font.system(style, design: .rounded).weight(weight)
-    }
+    static let linerMonoCaption = Font.system(.caption, design: .monospaced)
+    static func linerWeighted(_ style: Font.TextStyle, weight: Font.Weight = .regular) -> Font { Font.system(style, design: .rounded).weight(weight) }
 }
 
 // MARK: - Spacing
-
-struct LinerSpacing {
-    static let xxs: CGFloat = 2
-    static let xs: CGFloat = 4
-    static let sm: CGFloat = 8
-    static let md: CGFloat = 16
-    static let lg: CGFloat = 24
-    static let xl: CGFloat = 32
-    static let xxl: CGFloat = 48
-    static let xxxl: CGFloat = 64
-}
+struct LinerSpacing { static let xxs: CGFloat = 2; static let xs: CGFloat = 4; static let sm: CGFloat = 8; static let md: CGFloat = 16; static let lg: CGFloat = 24; static let xl: CGFloat = 32; static let xxl: CGFloat = 48; static let xxxl: CGFloat = 64 }
 
 // MARK: - Radius
-
-struct LinerRadius {
-    static let xs: CGFloat = 4
-    static let sm: CGFloat = 8
-    static let md: CGFloat = 12
-    static let lg: CGFloat = 16
-    static let xl: CGFloat = 24
-    static let xxl: CGFloat = 32
-    static let full: CGFloat = 9999
-}
+struct LinerRadius { static let xs: CGFloat = 4; static let sm: CGFloat = 8; static let md: CGFloat = 12; static let lg: CGFloat = 16; static let xl: CGFloat = 24; static let xxl: CGFloat = 32; static let full: CGFloat = 9999 }
 
 // MARK: - Animation
-
-struct LinerAnimation {
-    static let quick = Animation.easeInOut(duration: 0.15)
-    static let standard = Animation.easeInOut(duration: 0.25)
-    static let slow = Animation.easeInOut(duration: 0.4)
-    static let spring = Animation.spring(response: 0.4, dampingFraction: 0.8)
-    static let bouncy = Animation.spring(response: 0.5, dampingFraction: 0.6)
-}
-
 extension Animation {
     static let linerSpring = Animation.spring(response: 0.4, dampingFraction: 0.8)
+    static let linerSpringFast = Animation.spring(response: 0.3, dampingFraction: 0.7)
+    static let linerEaseOut = Animation.easeOut(duration: 0.2)
     static let linerQuick = Animation.easeInOut(duration: 0.15)
 }
 
 // MARK: - Shadow
-
-struct LinerShadow {
-    static let small = Shadow(color: .black.opacity(0.05), radius: 4, x: 0, y: 2)
-    static let medium = Shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
-    static let large = Shadow(color: .black.opacity(0.15), radius: 16, x: 0, y: 8)
+struct LinerShadow { let color: Color; let radius: CGFloat; let x: CGFloat; let y: CGFloat
+    static let small = LinerShadow(color: .black.opacity(0.05), radius: 4, x: 0, y: 2)
+    static let medium = LinerShadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+    static let large = LinerShadow(color: .black.opacity(0.15), radius: 16, x: 0, y: 8)
 }
+extension View { func linerShadow(_ shadow: LinerShadow = .medium) -> some View { self.shadow(color: shadow.color, radius: shadow.radius, x: shadow.x, y: shadow.y) } }
 
-struct Shadow {
-    let color: Color
-    let radius: CGFloat
-    let x: CGFloat
-    let y: CGFloat
-}
+// MARK: - Haptics
+enum LinerHaptic { static func light() { UIImpactFeedbackGenerator(style: .light).impactOccurred() }; static func medium() { UIImpactFeedbackGenerator(style: .medium).impactOccurred() }; static func heavy() { UIImpactFeedbackGenerator(style: .heavy).impactOccurred() }; static func selection() { UISelectionFeedbackGenerator().selectionChanged() } }
 
-extension View {
-    func linerShadow(_ shadow: LinerShadow = .medium) -> some View {
-        shadow(color: shadow.color, radius: shadow.radius, x: shadow.x, y: shadow.y)
-    }
-}
+// MARK: - Gradient
+extension Color { static let linerGradientPrimary = LinearGradient(colors: [.linerPrimary, .linerAccent], startPoint: .topLeading, endPoint: .bottomTrailing) }
