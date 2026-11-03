@@ -17,7 +17,7 @@ import Combine
     @Published private(set) var shuffleEnabled = false
 
     private var player: AVPlayer?
-    private var timeObserver: Any?
+    private nonisolated(unsafe) var timeObserver: Any?
     private var cancellables = Set<AnyCancellable>()
     private let audioSession = AVAudioSession.sharedInstance()
 
@@ -299,9 +299,10 @@ import Combine
 
     deinit {
         if let observer = timeObserver {
-            player?.removeTimeObserver(observer)
+            Task { @MainActor in
+                player?.removeTimeObserver(observer)
+            }
         }
-        NotificationCenter.default.removeObserver(self)
     }
 }
 
