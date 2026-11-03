@@ -1,0 +1,4 @@
+module LinerApp {
+header "LinerApp-Swift.h"
+export *
+}

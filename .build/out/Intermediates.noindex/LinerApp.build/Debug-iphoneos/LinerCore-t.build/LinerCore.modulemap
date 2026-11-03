@@ -1,0 +1,4 @@
+module LinerCore {
+header "LinerCore-Swift.h"
+export *
+}

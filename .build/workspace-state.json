@@ -1,0 +1,27 @@
+{
+  "object" : {
+    "artifacts" : [
+
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "workspace",
+          "kind" : "fileSystem",
+          "location" : "/workspace",
+          "name" : "workspace"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/workspace"
+        },
+        "subpath" : "workspace"
+      }
+    ],
+    "prebuilts" : [
+
+    ]
+  },
+  "version" : 7
+}

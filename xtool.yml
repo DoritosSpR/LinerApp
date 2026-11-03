@@ -1,0 +1,17 @@
+version: 1
+bundleID: com.liner.ios
+displayName: Liner
+appVersion: "1.0.0"
+buildNumber: 1
+resources:
+  - Resources/Assets.xcassets
+  - Resources/Fonts
+capabilities:
+  - backgroundModes: audio
+  - musicKit: true
+  - mediaPlayer: true
+minimumOSVersion: "17.0"
+supportedOrientations:
+  - portrait
+  - landscapeLeft
+  - landscapeRight
