@@ -3,7 +3,7 @@ import AVFoundation
 import MediaPlayer
 import Combine
 
-final class AudioPlayer: ObservableObject {
+@MainActor final class AudioPlayer: ObservableObject {
     static let shared = AudioPlayer()
 
     @Published private(set) var currentTrack: Track?
