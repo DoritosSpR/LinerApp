@@ -20,8 +20,6 @@ public struct Playlist: Identifiable, Codable, Hashable {
         description: String? = nil,
         artworkURL: URL? = nil,
         tracks: [Track] = [],
-        trackCount: Int = 0,
-        totalDuration: TimeInterval = 0,
         owner: User,
         isPublic: Bool = false,
         isCollaborative: Bool = false,

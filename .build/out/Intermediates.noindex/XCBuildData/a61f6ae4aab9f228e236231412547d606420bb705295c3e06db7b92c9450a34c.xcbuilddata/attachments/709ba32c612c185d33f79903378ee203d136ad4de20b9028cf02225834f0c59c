@@ -1,0 +1,39 @@
+{
+  "" : {
+    "diagnostics" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/LinerApp-primary.dia",
+    "emit-module-dependencies" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/LinerApp-primary-emit-module.d",
+    "emit-module-diagnostics" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/LinerApp-primary-emit-module.dia",
+    "pch" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/LinerApp-primary-Bridging-header.pch",
+    "swift-dependencies" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/LinerApp-primary.swiftdeps"
+  },
+  "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/DerivedSources/resource_bundle_accessor.swift" : {
+    "const-values" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/resource_bundle_accessor.swiftconstvalues",
+    "dependencies" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/resource_bundle_accessor.d",
+    "diagnostics" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/resource_bundle_accessor.dia",
+    "index-unit-output-path" : "/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/resource_bundle_accessor.o",
+    "llvm-bc" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/resource_bundle_accessor.bc",
+    "object" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/resource_bundle_accessor.o",
+    "swift-dependencies" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/resource_bundle_accessor.swiftdeps",
+    "swiftmodule" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/resource_bundle_accessor~partial.swiftmodule"
+  },
+  "/workspace/Sources/LinerApp/LinerApp.swift" : {
+    "const-values" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/LinerApp.swiftconstvalues",
+    "dependencies" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/LinerApp.d",
+    "diagnostics" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/LinerApp.dia",
+    "index-unit-output-path" : "/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/LinerApp.o",
+    "llvm-bc" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/LinerApp.bc",
+    "object" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/LinerApp.o",
+    "swift-dependencies" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/LinerApp.swiftdeps",
+    "swiftmodule" : "/workspace/.build/out/Intermediates.noindex/LinerApp.build/Debug-iphoneos/LinerApp-t.build/Objects-normal/arm64/LinerApp~partial.swiftmodule"
+  }
+}

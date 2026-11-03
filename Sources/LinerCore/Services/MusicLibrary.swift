@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 @MainActor
-public final class MusicLibrary: ObservableObject {
+public public final class MusicLibrary: ObservableObject {
     public static let shared = MusicLibrary()
     
     @Published public private(set) var tracks: [Track] = []
@@ -21,7 +21,6 @@ public final class MusicLibrary: ObservableObject {
     }
     
     // MARK: - Persistence
-    
     private func loadPersistedData() {
         if let data = UserDefaults.standard.data(forKey: "liner.favorites"),
            let decoded = try? JSONDecoder().decode([Track].self, from: data) {
@@ -46,7 +45,6 @@ public final class MusicLibrary: ObservableObject {
     }
     
     // MARK: - Favorites
-    
     public func toggleFavorite(_ track: Track) {
         if let index = favorites.firstIndex(where: { $0.id == track.id }) {
             favorites.remove(at: index)
@@ -68,8 +66,6 @@ public final class MusicLibrary: ObservableObject {
         favorites.contains { $0.id == track.id }
     }
     
-    // MARK: - Recently Played
-    
     public func addToRecentlyPlayed(_ track: Track) {
         recentlyPlayed.removeAll { $0.id == track.id }
         recentlyPlayed.insert(track, at: 0)
@@ -78,7 +74,6 @@ public final class MusicLibrary: ObservableObject {
     }
     
     // MARK: - Search Methods (for SearchService)
-    
     public func searchTracks(query: String) -> [Track] {
         let lowercased = query.lowercased()
         return tracks.filter { $0.title.lowercased().contains(lowercased) || $0.artist.name.lowercased().contains(lowercased) }
@@ -99,8 +94,6 @@ public final class MusicLibrary: ObservableObject {
         return playlists.filter { $0.title.lowercased().contains(lowercased) }
     }
     
-    // MARK: - Generic Search
-    
     public func search(query: String) -> SearchResults {
         let lowercased = query.lowercased()
         let tracksResult = tracks.filter { $0.title.lowercased().contains(lowercased) || $0.artist.name.lowercased().contains(lowercased) }
@@ -111,7 +104,6 @@ public final class MusicLibrary: ObservableObject {
     }
     
     // MARK: - Sample Data
-    
     private func createSampleData() {
         let tameImpala = Artist(
             id: "artist-1",
@@ -160,7 +152,10 @@ public final class MusicLibrary: ObservableObject {
                 duration: 463,
                 artworkURL: nil,
                 audioURL: nil,
-                lyrics: lyrics1,
+                lyrics: Lyrics(synced: [
+                    SyncedLine(time: 5.2, text: "All this running around"),
+                    SyncedLine(time: 10.1, text: "I can't fight it long")
+                ]),
                 trackNumber: 1,
                 discNumber: 1,
                 isExplicit: false,
@@ -177,7 +172,10 @@ public final class MusicLibrary: ObservableObject {
                 duration: 216,
                 artworkURL: nil,
                 audioURL: nil,
-                lyrics: lyrics2,
+                lyrics: Lyrics(synced: [
+                    SyncedLine(time: 3.1, text: "Someone said they left together"),
+                    SyncedLine(time: 8.2, text: "I ran out the door to get her")
+                ]),
                 trackNumber: 2,
                 discNumber: 1,
                 isExplicit: false,

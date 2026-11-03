@@ -1,0 +1,23 @@
+Target dependency graph (8 targets)
+Target 'AllExcludingTests' in project 'Aggregate'
+➜ Explicit dependency on target 'LinerApp-App-product' in project 'LinerApp-Builder'
+Target 'LinerApp-App-product' in project 'LinerApp-Builder'
+➜ Explicit dependency on target 'LinerApp-product' in project 'LinerApp'
+Target 'LinerApp-product' in project 'LinerApp'
+➜ Explicit dependency on target 'LinerApp' in project 'LinerApp'
+➜ Explicit dependency on target 'LinerApp_LinerApp' in project 'LinerApp'
+➜ Explicit dependency on target 'LinerCore' in project 'LinerApp'
+➜ Explicit dependency on target 'LinerUI' in project 'LinerApp'
+➜ Explicit dependency on target 'LinerFeatures' in project 'LinerApp'
+Target 'LinerApp' in project 'LinerApp'
+➜ Explicit dependency on target 'LinerApp_LinerApp' in project 'LinerApp'
+➜ Explicit dependency on target 'LinerCore' in project 'LinerApp'
+➜ Explicit dependency on target 'LinerUI' in project 'LinerApp'
+➜ Explicit dependency on target 'LinerFeatures' in project 'LinerApp'
+Target 'LinerFeatures' in project 'LinerApp'
+➜ Explicit dependency on target 'LinerCore' in project 'LinerApp'
+➜ Explicit dependency on target 'LinerUI' in project 'LinerApp'
+Target 'LinerUI' in project 'LinerApp'
+➜ Explicit dependency on target 'LinerCore' in project 'LinerApp'
+Target 'LinerCore' in project 'LinerApp' (no dependencies)
+Target 'LinerApp_LinerApp' in project 'LinerApp' (no dependencies)

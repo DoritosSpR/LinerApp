@@ -103,7 +103,6 @@ public struct Lyrics: Codable, Hashable {
         self.plain = plain
     }
     
-    // Convenience init for synced lyrics
     public init(synced: [SyncedLine]) {
         self.lines = synced
         self.isSynced = true

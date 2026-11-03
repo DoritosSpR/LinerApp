@@ -5,14 +5,16 @@ import Combine
 import UIKit
 
 @MainActor
-public final class AudioPlayer: ObservableObject {
-    static let shared = AudioPlayer()
+public public final class AudioPlayer: ObservableObject {
+    public static let shared = AudioPlayer()
     
-    @Published private(set) var currentTrack: Track?
-    @Published private(set) var isPlaying = false
-    @Published private(set) var currentTime: TimeInterval = 0
-    @Published private(set) var duration: TimeInterval = 0
-    @Published private(set) var playbackState: PlaybackState = .stopped
+    @Published public private(set) var currentTrack: Track?
+    @Published public private(set) var isPlaying = false
+    @Published public private(set) var currentTime: TimeInterval = 0
+    @Published public private(set) var duration: TimeInterval = 0
+    @Published public private(set) var playbackState: PlaybackState = .stopped
+    @Published public private(set) var shuffleEnabled = false
+    @Published public private(set) var repeatMode: RepeatMode = .off
     
     private var player: AVPlayer?
     private nonisolated(unsafe) var timeObserver: Any?
@@ -26,14 +28,12 @@ public final class AudioPlayer: ObservableObject {
     }
     
     deinit {
-        // Limpieza síncrona en deinit (sin Task/self)
         if let observer = timeObserver {
             player?.removeTimeObserver(observer)
         }
     }
     
     // MARK: - Audio Session
-    
     private func setupAudioSession() {
         do {
             let audioSession = AVAudioSession.sharedInstance()
@@ -45,7 +45,6 @@ public final class AudioPlayer: ObservableObject {
     }
     
     // MARK: - Remote Commands
-    
     private func setupRemoteCommands() {
         let commandCenter = MPRemoteCommandCenter.shared()
         commandCenter.playCommand.addTarget { [weak self] _ in
@@ -72,10 +71,9 @@ public final class AudioPlayer: ObservableObject {
     }
     
     // MARK: - Now Playing Info
-    
     private func setupNowPlayingInfo() {
         var nowPlayingInfo = [String: Any]()
-        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 1.0  // ← constante correcta
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 1.0
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }
     
@@ -86,7 +84,7 @@ public final class AudioPlayer: ObservableObject {
         nowPlayingInfo[MPMediaItemPropertyArtist] = track.artist.name
         nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = duration
         nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = currentTime
-        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = isPlaying ? 1.0 : 0.0  // ← constante correcta
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = isPlaying ? 1.0 : 0.0
         if let artworkURL = track.artworkURL, let data = try? Data(contentsOf: artworkURL), let image = UIImage(data: data) {
             nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size) { _ in image }
         }
@@ -94,13 +92,11 @@ public final class AudioPlayer: ObservableObject {
     }
     
     // MARK: - Playback Control
-    
     func load(track: Track, queue: [Track], startIndex: Int = 0) {
         currentQueue = queue
         currentIndex = startIndex
         currentTrack = track
         
-        // Unwrap audioURL
         guard let audioURL = track.audioURL else {
             print("Audio URL is nil for track: \(track.title)")
             return
@@ -143,6 +139,10 @@ public final class AudioPlayer: ObservableObject {
         updateNowPlayingInfo()
     }
     
+    func togglePlayPause() {
+        isPlaying ? pause() : play()
+    }
+    
     func seek(to time: TimeInterval) {
         let cmTime = CMTime(seconds: time, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         player?.seek(to: cmTime) { [weak self] _ in
@@ -164,8 +164,24 @@ public final class AudioPlayer: ObservableObject {
         currentIndex -= 1
         load(track: currentQueue[currentIndex], queue: currentQueue, startIndex: currentIndex)
     }
+    
+    func toggleShuffle() {
+        shuffleEnabled.toggle()
+    }
+    
+    func toggleRepeatMode() {
+        switch repeatMode {
+        case .off: repeatMode = .queue
+        case .queue: repeatMode = .track
+        case .track: repeatMode = .off
+        }
+    }
 }
 
-enum PlaybackState {
+public enum PlaybackState {
     case playing, paused, stopped
+}
+
+public enum RepeatMode {
+    case off, queue, track
 }

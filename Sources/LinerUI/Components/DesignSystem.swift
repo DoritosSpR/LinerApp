@@ -80,7 +80,45 @@ struct LinerShadow { let color: Color; let radius: CGFloat; let x: CGFloat; let 
 }
 extension View { func linerShadow(_ shadow: LinerShadow = .medium) -> some View { self.shadow(color: shadow.color, radius: shadow.radius, x: shadow.x, y: shadow.y) } }
 
-// MARK: - Haptics (@MainActor para Swift 6)
+// MARK: - Haptics
+@MainActor
+enum LinerHaptic {
+    static func light() { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+    static func medium() { UIImpactFeedbackGenerator(style: .medium).impactOccurred() }
+    static func heavy() { UIImpactFeedbackGenerator(style: .heavy).impactOccurred() }
+    static func selection() { UISelectionFeedbackGenerator().selectionChanged() }
+    static func success() { UINotificationFeedbackGenerator().notificationOccurred(.success) }
+    static func warning() { UINotificationFeedbackGenerator().notificationOccurred(.warning) }
+    static func error() { UINotificationFeedbackGenerator().notificationOccurred(.error) }
+}
+
+// MARK: - Gradient
+extension Color {
+    static let linerGradientPrimary = LinearGradient(colors: [.linerPrimary, .linerAccent], startPoint: .topLeading, endPoint: .bottomTrailing)
+    static let linerGradientSurface = LinearGradient(colors: [.linerSurface, .linerSurfaceElevated], startPoint: .top, endPoint: .bottom)
+    static let linerGradientBackground = LinearGradient(colors: [.linerBackground, .linerSurface], startPoint: .top, endPoint: .bottom)
+}
+
+// MARK: - GlassMorphism
+struct GlassMorphism: ViewModifier {
+    enum Intensity { case light, medium, heavy }
+    let intensity: Intensity
+    func body(content: Content) -> some View {
+        let material: Material = intensity == .light ? .ultraThinMaterial : intensity == .medium ? .thinMaterial : .regularMaterial
+        content.background(material)
+    }
+}
+extension View { func glassMorphism(_ intensity: GlassMorphism.Intensity = .medium) -> some View { modifier(GlassMorphism(intensity: intensity)) } }
+
+// MARK: - Shadow
+struct LinerShadow { let color: Color; let radius: CGFloat; let x: CGFloat; let y: CGFloat
+    static let small = LinerShadow(color: .black.opacity(0.05), radius: 4, x: 0, y: 2)
+    static let medium = LinerShadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+    static let large = LinerShadow(color: .black.opacity(0.15), radius: 16, x: 0, y: 8)
+}
+extension View { func linerShadow(_ shadow: LinerShadow = .medium) -> some View { self.shadow(color: shadow.color, radius: shadow.radius, x: shadow.x, y: shadow.y) } }
+
+// MARK: - Haptics
 @MainActor
 enum LinerHaptic {
     static func light() { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
@@ -135,35 +173,4 @@ extension Color {
     static let linerGradientPrimary = LinearGradient(colors: [.linerPrimary, .linerAccent], startPoint: .topLeading, endPoint: .bottomTrailing)
     static let linerGradientSurface = LinearGradient(colors: [.linerSurface, .linerSurfaceElevated], startPoint: .top, endPoint: .bottom)
     static let linerGradientBackground = LinearGradient(colors: [.linerBackground, .linerSurface], startPoint: .top, endPoint: .bottom)
-}
-
-// MARK: - GlassMorphism
-struct GlassMorphism: ViewModifier {
-    enum Intensity { case light, medium, heavy }
-    let intensity: Intensity
-    func body(content: Content) -> some View {
-        let material: Material = intensity == .light ? .ultraThinMaterial : intensity == .medium ? .thinMaterial : .regularMaterial
-        content.background(material)
-    }
-}
-extension View { func glassMorphism(_ intensity: GlassMorphism.Intensity = .medium) -> some View { modifier(GlassMorphism(intensity: intensity)) } }
-
-// MARK: - Shadow
-struct LinerShadow { let color: Color; let radius: CGFloat; let x: CGFloat; let y: CGFloat
-    static let small = LinerShadow(color: .black.opacity(0.05), radius: 4, x: 0, y: 2)
-    static let medium = LinerShadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
-    static let large = LinerShadow(color: .black.opacity(0.15), radius: 16, x: 0, y: 8)
-}
-extension View { func linerShadow(_ shadow: LinerShadow = .medium) -> some View { self.shadow(color: shadow.color, radius: shadow.radius, x: shadow.x, y: shadow.y) } }
-
-// MARK: - Haptics
-@MainActor
-enum LinerHaptic {
-    static func light() { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
-    static func medium() { UIImpactFeedbackGenerator(style: .medium).impactOccurred() }
-    static func heavy() { UIImpactFeedbackGenerator(style: .heavy).impactOccurred() }
-    static func selection() { UISelectionFeedbackGenerator().selectionChanged() }
-    static func success() { UINotificationFeedbackGenerator().notificationOccurred(.success) }
-    static func warning() { UINotificationFeedbackGenerator().notificationOccurred(.warning) }
-    static func error() { UINotificationFeedbackGenerator().notificationOccurred(.error) }
 }

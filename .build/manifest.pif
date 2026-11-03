@@ -5,12 +5,12 @@
       "name" : "LinerApp-Builder",
       "path" : "/workspace/xtool/.xtool-tmp",
       "projects" : [
-        "60729636054dd08a9372f529527548e0927d480f211d67e392df5f6617bc4f2f",
+        "035b72aaf11cdaa89eed263ae8f499268c4a1fa82dd95e08e84834e7faf0b8d3",
         "1c74f9547821365dc569f419ba36b32f9498942a16e85153535db63740e93577",
         "0fd3e9dc20a496ee921989e28884d84b020902fd234552c884d8c925c43bcb96"
       ]
     },
-    "signature" : "081d876aa6bd23593d803668bd76dd85ed756b42bc8a44505a36b638b82187d0",
+    "signature" : "409fe0e21de073c55342e7321b0205bf6a424303df15bd2eb4c5dd47a0517292",
     "type" : "workspace"
   },
   {
@@ -228,12 +228,21 @@
             "type" : "file"
           },
           {
-            "fileType" : "file",
+            "children" : [
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:workspace::MAINGROUP::REF_4::REF_0",
+                "name" : "LinerApp.swift",
+                "path" : "LinerApp.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              }
+            ],
             "guid" : "PACKAGE:workspace::MAINGROUP::REF_4",
-            "name" : "/workspace/Sources/Resources",
-            "path" : "/workspace/Sources/Resources",
+            "name" : "/workspace/Sources/LinerApp",
+            "path" : "/workspace/Sources/LinerApp",
             "sourceTree" : "<absolute>",
-            "type" : "file"
+            "type" : "group"
           },
           {
             "children" : [
@@ -257,15 +266,39 @@
               {
                 "fileType" : "sourcecode.swift",
                 "guid" : "PACKAGE:workspace::MAINGROUP::REF_6::REF_0",
-                "name" : "LinerApp.swift",
-                "path" : "LinerApp.swift",
+                "name" : "Components/Buttons.swift",
+                "path" : "Components/Buttons.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:workspace::MAINGROUP::REF_6::REF_1",
+                "name" : "Components/Cards.swift",
+                "path" : "Components/Cards.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:workspace::MAINGROUP::REF_6::REF_2",
+                "name" : "Components/DesignSystem.swift",
+                "path" : "Components/DesignSystem.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:workspace::MAINGROUP::REF_6::REF_3",
+                "name" : "Components/PlayerControls.swift",
+                "path" : "Components/PlayerControls.swift",
                 "sourceTree" : "<group>",
                 "type" : "file"
               }
             ],
             "guid" : "PACKAGE:workspace::MAINGROUP::REF_6",
-            "name" : "/workspace/Sources/LinerApp",
-            "path" : "/workspace/Sources/LinerApp",
+            "name" : "/workspace/Sources/LinerUI",
+            "path" : "/workspace/Sources/LinerUI",
             "sourceTree" : "<absolute>",
             "type" : "group"
           },
@@ -315,39 +348,47 @@
               {
                 "fileType" : "sourcecode.swift",
                 "guid" : "PACKAGE:workspace::MAINGROUP::REF_8::REF_0",
-                "name" : "Components/Buttons.swift",
-                "path" : "Components/Buttons.swift",
+                "name" : "Library/LibraryView.swift",
+                "path" : "Library/LibraryView.swift",
                 "sourceTree" : "<group>",
                 "type" : "file"
               },
               {
                 "fileType" : "sourcecode.swift",
                 "guid" : "PACKAGE:workspace::MAINGROUP::REF_8::REF_1",
-                "name" : "Components/Cards.swift",
-                "path" : "Components/Cards.swift",
+                "name" : "Lyrics/LyricsView.swift",
+                "path" : "Lyrics/LyricsView.swift",
                 "sourceTree" : "<group>",
                 "type" : "file"
               },
               {
                 "fileType" : "sourcecode.swift",
                 "guid" : "PACKAGE:workspace::MAINGROUP::REF_8::REF_2",
-                "name" : "Components/DesignSystem.swift",
-                "path" : "Components/DesignSystem.swift",
+                "name" : "Player/NowPlayingView.swift",
+                "path" : "Player/NowPlayingView.swift",
                 "sourceTree" : "<group>",
                 "type" : "file"
               },
               {
                 "fileType" : "sourcecode.swift",
                 "guid" : "PACKAGE:workspace::MAINGROUP::REF_8::REF_3",
-                "name" : "Components/PlayerControls.swift",
-                "path" : "Components/PlayerControls.swift",
+                "name" : "Search/SearchView.swift",
+                "path" : "Search/SearchView.swift",
+                "sourceTree" : "<group>",
+                "type" : "file"
+              },
+              {
+                "fileType" : "sourcecode.swift",
+                "guid" : "PACKAGE:workspace::MAINGROUP::REF_8::REF_4",
+                "name" : "Settings/SettingsView.swift",
+                "path" : "Settings/SettingsView.swift",
                 "sourceTree" : "<group>",
                 "type" : "file"
               }
             ],
             "guid" : "PACKAGE:workspace::MAINGROUP::REF_8",
-            "name" : "/workspace/Sources/LinerUI",
-            "path" : "/workspace/Sources/LinerUI",
+            "name" : "/workspace/Sources/LinerFeatures",
+            "path" : "/workspace/Sources/LinerFeatures",
             "sourceTree" : "<absolute>",
             "type" : "group"
           },
@@ -405,47 +446,47 @@
               {
                 "fileType" : "sourcecode.swift",
                 "guid" : "PACKAGE:workspace::MAINGROUP::REF_10::REF_0",
-                "name" : "Library/LibraryView.swift",
-                "path" : "Library/LibraryView.swift",
+                "name" : "Models/Playlist.swift",
+                "path" : "Models/Playlist.swift",
                 "sourceTree" : "<group>",
                 "type" : "file"
               },
               {
                 "fileType" : "sourcecode.swift",
                 "guid" : "PACKAGE:workspace::MAINGROUP::REF_10::REF_1",
-                "name" : "Lyrics/LyricsView.swift",
-                "path" : "Lyrics/LyricsView.swift",
+                "name" : "Models/Track.swift",
+                "path" : "Models/Track.swift",
                 "sourceTree" : "<group>",
                 "type" : "file"
               },
               {
                 "fileType" : "sourcecode.swift",
                 "guid" : "PACKAGE:workspace::MAINGROUP::REF_10::REF_2",
-                "name" : "Player/NowPlayingView.swift",
-                "path" : "Player/NowPlayingView.swift",
+                "name" : "Services/AudioPlayer.swift",
+                "path" : "Services/AudioPlayer.swift",
                 "sourceTree" : "<group>",
                 "type" : "file"
               },
               {
                 "fileType" : "sourcecode.swift",
                 "guid" : "PACKAGE:workspace::MAINGROUP::REF_10::REF_3",
-                "name" : "Search/SearchView.swift",
-                "path" : "Search/SearchView.swift",
+                "name" : "Services/MusicLibrary.swift",
+                "path" : "Services/MusicLibrary.swift",
                 "sourceTree" : "<group>",
                 "type" : "file"
               },
               {
                 "fileType" : "sourcecode.swift",
                 "guid" : "PACKAGE:workspace::MAINGROUP::REF_10::REF_4",
-                "name" : "Settings/SettingsView.swift",
-                "path" : "Settings/SettingsView.swift",
+                "name" : "Services/SearchService.swift",
+                "path" : "Services/SearchService.swift",
                 "sourceTree" : "<group>",
                 "type" : "file"
               }
             ],
             "guid" : "PACKAGE:workspace::MAINGROUP::REF_10",
-            "name" : "/workspace/Sources/LinerFeatures",
-            "path" : "/workspace/Sources/LinerFeatures",
+            "name" : "/workspace/Sources/LinerCore",
+            "path" : "/workspace/Sources/LinerCore",
             "sourceTree" : "<absolute>",
             "type" : "group"
           },
@@ -497,55 +538,6 @@
             "path" : "/workspace/Sources/LinerCore",
             "sourceTree" : "<absolute>",
             "type" : "group"
-          },
-          {
-            "children" : [
-              {
-                "fileType" : "sourcecode.swift",
-                "guid" : "PACKAGE:workspace::MAINGROUP::REF_12::REF_0",
-                "name" : "Models/Playlist.swift",
-                "path" : "Models/Playlist.swift",
-                "sourceTree" : "<group>",
-                "type" : "file"
-              },
-              {
-                "fileType" : "sourcecode.swift",
-                "guid" : "PACKAGE:workspace::MAINGROUP::REF_12::REF_1",
-                "name" : "Models/Track.swift",
-                "path" : "Models/Track.swift",
-                "sourceTree" : "<group>",
-                "type" : "file"
-              },
-              {
-                "fileType" : "sourcecode.swift",
-                "guid" : "PACKAGE:workspace::MAINGROUP::REF_12::REF_2",
-                "name" : "Services/AudioPlayer.swift",
-                "path" : "Services/AudioPlayer.swift",
-                "sourceTree" : "<group>",
-                "type" : "file"
-              },
-              {
-                "fileType" : "sourcecode.swift",
-                "guid" : "PACKAGE:workspace::MAINGROUP::REF_12::REF_3",
-                "name" : "Services/MusicLibrary.swift",
-                "path" : "Services/MusicLibrary.swift",
-                "sourceTree" : "<group>",
-                "type" : "file"
-              },
-              {
-                "fileType" : "sourcecode.swift",
-                "guid" : "PACKAGE:workspace::MAINGROUP::REF_12::REF_4",
-                "name" : "Services/SearchService.swift",
-                "path" : "Services/SearchService.swift",
-                "sourceTree" : "<group>",
-                "type" : "file"
-              }
-            ],
-            "guid" : "PACKAGE:workspace::MAINGROUP::REF_12",
-            "name" : "/workspace/Sources/LinerCore",
-            "path" : "/workspace/Sources/LinerCore",
-            "sourceTree" : "<absolute>",
-            "type" : "group"
           }
         ],
         "guid" : "PACKAGE:workspace::MAINGROUP",
@@ -561,19 +553,19 @@
       "projectName" : "LinerApp",
       "targets" : [
         "ef5a8048fd3da94293386822c6357ba386af8e7d565471981569df6acd890f32",
-        "e62212c4ed3561f5366f6c9b0b232880af70c4425cb881bf43bb202079550347",
-        "fff747b41c371d51857a175dabf1b35ee59338d0601ed4da2676f05b5aaa4414",
-        "37c4561d728bde05489066bf55490746d93d6919df3cd5c7ef5d1f5f86e1e365",
-        "7c7f7c37ff77fc9c481835417b05f2a5b83ba29daa07bf7c3e9116aeae6b516a",
-        "1cc2bcf4c40dab8ec5850b53c8c60007ad07d376441fa806bcac6fd7fdd45a2c",
-        "ef8df4bb78659df754d9319f14a0be7cc0410b8f7147fd2a24514bc52ccc1f52",
-        "763e2e291699be4033a0ee18e3f98e5f8d3fd9e43322438623787aaebfb210e9",
-        "e26ca79604b963a129b9804fa0be8e440188e60b5f15e1c89771a99fd6faf495",
-        "39cabaf854bb94f3bf0fbdc1d0a73dba849f604cac8d6f947000241500f2b73e",
+        "53ebe9ae787b031ce0c4fe48b90477e661bf69d426f7d13deea7debfbe2e99ce",
+        "928a6895f933b71111fe27e98a2a60ac96063bfeeda3984ed8c7119af64304b3",
+        "afe466ef3ff55570edc0f83746340c64950f49385575fc5cb09b5f25311d3593",
+        "35f10539c5df9fd8dacccf6c0dfa82e62818ebdb22c1fb6306cd4919984b4ceb",
+        "f169dc55f3c9c022d0fee802cfd2981685f254784c8e613d63d4f1752ef6edf1",
+        "d5e8dc62aa78e895d26ba75351a406bb5cb119deff84b86f28839300c7d57b28",
+        "8afa16e1aa4f4e761543efbaddebee816278c7f2c94a0b97520908c5ebf95c76",
+        "74e0fb3384a4421e1175d4b879a6b4bd2be0e234aacd42dab8c28b310d025892",
+        "6b698e452f15ff60a92e530b5fb6acafe20b4101820acd70ce3755d4af4fcb21",
         "c8556358b9b450464b26c664aaa5e02356c0e54f9a6732deea77260d4a4f987e"
       ]
     },
-    "signature" : "60729636054dd08a9372f529527548e0927d480f211d67e392df5f6617bc4f2f",
+    "signature" : "035b72aaf11cdaa89eed263ae8f499268c4a1fa82dd95e08e84834e7faf0b8d3",
     "type" : "project"
   },
   {
@@ -825,7 +817,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_5::REF_0",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_4::REF_0",
               "guid" : "PACKAGE-TARGET:LinerApp::BUILDPHASE_0::1",
               "platformFilters" : [
 
@@ -880,7 +872,7 @@
       "productTypeIdentifier" : "org.swift.product-type.library.static",
       "type" : "standard"
     },
-    "signature" : "e62212c4ed3561f5366f6c9b0b232880af70c4425cb881bf43bb202079550347",
+    "signature" : "53ebe9ae787b031ce0c4fe48b90477e661bf69d426f7d13deea7debfbe2e99ce",
     "type" : "target"
   },
   {
@@ -946,16 +938,6 @@
               ],
               "removeHeadersOnCopy" : "false",
               "resourceRule" : "process"
-            },
-            {
-              "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_4",
-              "guid" : "PACKAGE-RESOURCE:LinerApp::BUILDPHASE_0::1",
-              "platformFilters" : [
-
-              ],
-              "removeHeadersOnCopy" : "false",
-              "resourceRule" : "process"
             }
           ],
           "guid" : "PACKAGE-RESOURCE:LinerApp::BUILDPHASE_0",
@@ -981,7 +963,7 @@
       "productTypeIdentifier" : "com.apple.product-type.bundle",
       "type" : "standard"
     },
-    "signature" : "fff747b41c371d51857a175dabf1b35ee59338d0601ed4da2676f05b5aaa4414",
+    "signature" : "928a6895f933b71111fe27e98a2a60ac96063bfeeda3984ed8c7119af64304b3",
     "type" : "target"
   },
   {
@@ -1099,7 +1081,7 @@
           "buildFiles" : [
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_7::REF_0",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_6::REF_0",
               "guid" : "PACKAGE-TARGET:LinerUI::BUILDPHASE_0::0",
               "platformFilters" : [
 
@@ -1108,7 +1090,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_7::REF_1",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_6::REF_1",
               "guid" : "PACKAGE-TARGET:LinerUI::BUILDPHASE_0::1",
               "platformFilters" : [
 
@@ -1117,7 +1099,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_7::REF_2",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_6::REF_2",
               "guid" : "PACKAGE-TARGET:LinerUI::BUILDPHASE_0::2",
               "platformFilters" : [
 
@@ -1126,7 +1108,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_7::REF_3",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_6::REF_3",
               "guid" : "PACKAGE-TARGET:LinerUI::BUILDPHASE_0::3",
               "platformFilters" : [
 
@@ -1163,7 +1145,7 @@
       "productTypeIdentifier" : "org.swift.product-type.library.static",
       "type" : "standard"
     },
-    "signature" : "7c7f7c37ff77fc9c481835417b05f2a5b83ba29daa07bf7c3e9116aeae6b516a",
+    "signature" : "35f10539c5df9fd8dacccf6c0dfa82e62818ebdb22c1fb6306cd4919984b4ceb",
     "type" : "target"
   },
   {
@@ -1281,7 +1263,7 @@
           "buildFiles" : [
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_9::REF_0",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_8::REF_0",
               "guid" : "PACKAGE-TARGET:LinerFeatures::BUILDPHASE_0::0",
               "platformFilters" : [
 
@@ -1290,7 +1272,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_9::REF_1",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_8::REF_1",
               "guid" : "PACKAGE-TARGET:LinerFeatures::BUILDPHASE_0::1",
               "platformFilters" : [
 
@@ -1299,7 +1281,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_9::REF_2",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_8::REF_2",
               "guid" : "PACKAGE-TARGET:LinerFeatures::BUILDPHASE_0::2",
               "platformFilters" : [
 
@@ -1308,7 +1290,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_9::REF_3",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_8::REF_3",
               "guid" : "PACKAGE-TARGET:LinerFeatures::BUILDPHASE_0::3",
               "platformFilters" : [
 
@@ -1317,7 +1299,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_9::REF_4",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_8::REF_4",
               "guid" : "PACKAGE-TARGET:LinerFeatures::BUILDPHASE_0::4",
               "platformFilters" : [
 
@@ -1360,7 +1342,7 @@
       "productTypeIdentifier" : "org.swift.product-type.library.static",
       "type" : "standard"
     },
-    "signature" : "ef8df4bb78659df754d9319f14a0be7cc0410b8f7147fd2a24514bc52ccc1f52",
+    "signature" : "d5e8dc62aa78e895d26ba75351a406bb5cb119deff84b86f28839300c7d57b28",
     "type" : "target"
   },
   {
@@ -1478,7 +1460,7 @@
           "buildFiles" : [
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_11::REF_0",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_10::REF_0",
               "guid" : "PACKAGE-TARGET:LinerCore::BUILDPHASE_0::0",
               "platformFilters" : [
 
@@ -1487,7 +1469,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_11::REF_1",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_10::REF_1",
               "guid" : "PACKAGE-TARGET:LinerCore::BUILDPHASE_0::1",
               "platformFilters" : [
 
@@ -1496,7 +1478,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_11::REF_2",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_10::REF_2",
               "guid" : "PACKAGE-TARGET:LinerCore::BUILDPHASE_0::2",
               "platformFilters" : [
 
@@ -1505,7 +1487,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_11::REF_3",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_10::REF_3",
               "guid" : "PACKAGE-TARGET:LinerCore::BUILDPHASE_0::3",
               "platformFilters" : [
 
@@ -1514,7 +1496,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_11::REF_4",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_10::REF_4",
               "guid" : "PACKAGE-TARGET:LinerCore::BUILDPHASE_0::4",
               "platformFilters" : [
 
@@ -1546,7 +1528,7 @@
       "productTypeIdentifier" : "org.swift.product-type.library.static",
       "type" : "standard"
     },
-    "signature" : "e26ca79604b963a129b9804fa0be8e440188e60b5f15e1c89771a99fd6faf495",
+    "signature" : "74e0fb3384a4421e1175d4b879a6b4bd2be0e234aacd42dab8c28b310d025892",
     "type" : "target"
   },
   {
@@ -1727,7 +1709,7 @@
           "buildFiles" : [
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_6::REF_0",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_5::REF_0",
               "guid" : "PACKAGE-TARGET:LinerApp--45B7A777B1A20DDD-dynamic::BUILDPHASE_0::0",
               "platformFilters" : [
 
@@ -1808,7 +1790,7 @@
       "productTypeIdentifier" : "com.apple.product-type.library.dynamic",
       "type" : "standard"
     },
-    "signature" : "37c4561d728bde05489066bf55490746d93d6919df3cd5c7ef5d1f5f86e1e365",
+    "signature" : "afe466ef3ff55570edc0f83746340c64950f49385575fc5cb09b5f25311d3593",
     "type" : "target"
   },
   {
@@ -1924,7 +1906,7 @@
           "buildFiles" : [
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_8::REF_0",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_7::REF_0",
               "guid" : "PACKAGE-TARGET:LinerUI-35C62BFED872781F-dynamic::BUILDPHASE_0::0",
               "platformFilters" : [
 
@@ -1933,7 +1915,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_8::REF_1",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_7::REF_1",
               "guid" : "PACKAGE-TARGET:LinerUI-35C62BFED872781F-dynamic::BUILDPHASE_0::1",
               "platformFilters" : [
 
@@ -1942,7 +1924,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_8::REF_2",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_7::REF_2",
               "guid" : "PACKAGE-TARGET:LinerUI-35C62BFED872781F-dynamic::BUILDPHASE_0::2",
               "platformFilters" : [
 
@@ -1951,7 +1933,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_8::REF_3",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_7::REF_3",
               "guid" : "PACKAGE-TARGET:LinerUI-35C62BFED872781F-dynamic::BUILDPHASE_0::3",
               "platformFilters" : [
 
@@ -2000,7 +1982,7 @@
       "productTypeIdentifier" : "com.apple.product-type.library.dynamic",
       "type" : "standard"
     },
-    "signature" : "1cc2bcf4c40dab8ec5850b53c8c60007ad07d376441fa806bcac6fd7fdd45a2c",
+    "signature" : "f169dc55f3c9c022d0fee802cfd2981685f254784c8e613d63d4f1752ef6edf1",
     "type" : "target"
   },
   {
@@ -2116,7 +2098,7 @@
           "buildFiles" : [
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_10::REF_0",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_9::REF_0",
               "guid" : "PACKAGE-TARGET:LinerFeatures-1BA9437C56228F46-dynamic::BUILDPHASE_0::0",
               "platformFilters" : [
 
@@ -2125,7 +2107,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_10::REF_1",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_9::REF_1",
               "guid" : "PACKAGE-TARGET:LinerFeatures-1BA9437C56228F46-dynamic::BUILDPHASE_0::1",
               "platformFilters" : [
 
@@ -2134,7 +2116,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_10::REF_2",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_9::REF_2",
               "guid" : "PACKAGE-TARGET:LinerFeatures-1BA9437C56228F46-dynamic::BUILDPHASE_0::2",
               "platformFilters" : [
 
@@ -2143,7 +2125,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_10::REF_3",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_9::REF_3",
               "guid" : "PACKAGE-TARGET:LinerFeatures-1BA9437C56228F46-dynamic::BUILDPHASE_0::3",
               "platformFilters" : [
 
@@ -2152,7 +2134,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_10::REF_4",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_9::REF_4",
               "guid" : "PACKAGE-TARGET:LinerFeatures-1BA9437C56228F46-dynamic::BUILDPHASE_0::4",
               "platformFilters" : [
 
@@ -2214,7 +2196,7 @@
       "productTypeIdentifier" : "com.apple.product-type.library.dynamic",
       "type" : "standard"
     },
-    "signature" : "763e2e291699be4033a0ee18e3f98e5f8d3fd9e43322438623787aaebfb210e9",
+    "signature" : "8afa16e1aa4f4e761543efbaddebee816278c7f2c94a0b97520908c5ebf95c76",
     "type" : "target"
   },
   {
@@ -2330,7 +2312,7 @@
           "buildFiles" : [
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_12::REF_0",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_11::REF_0",
               "guid" : "PACKAGE-TARGET:LinerCore--23DD29B24D75E674-dynamic::BUILDPHASE_0::0",
               "platformFilters" : [
 
@@ -2339,7 +2321,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_12::REF_1",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_11::REF_1",
               "guid" : "PACKAGE-TARGET:LinerCore--23DD29B24D75E674-dynamic::BUILDPHASE_0::1",
               "platformFilters" : [
 
@@ -2348,7 +2330,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_12::REF_2",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_11::REF_2",
               "guid" : "PACKAGE-TARGET:LinerCore--23DD29B24D75E674-dynamic::BUILDPHASE_0::2",
               "platformFilters" : [
 
@@ -2357,7 +2339,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_12::REF_3",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_11::REF_3",
               "guid" : "PACKAGE-TARGET:LinerCore--23DD29B24D75E674-dynamic::BUILDPHASE_0::3",
               "platformFilters" : [
 
@@ -2366,7 +2348,7 @@
             },
             {
               "codeSignOnCopy" : "false",
-              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_12::REF_4",
+              "fileReference" : "PACKAGE:workspace::MAINGROUP::REF_11::REF_4",
               "guid" : "PACKAGE-TARGET:LinerCore--23DD29B24D75E674-dynamic::BUILDPHASE_0::4",
               "platformFilters" : [
 
@@ -2397,7 +2379,7 @@
       "productTypeIdentifier" : "com.apple.product-type.library.dynamic",
       "type" : "standard"
     },
-    "signature" : "39cabaf854bb94f3bf0fbdc1d0a73dba849f604cac8d6f947000241500f2b73e",
+    "signature" : "6b698e452f15ff60a92e530b5fb6acafe20b4101820acd70ce3755d4af4fcb21",
     "type" : "target"
   },
   {
