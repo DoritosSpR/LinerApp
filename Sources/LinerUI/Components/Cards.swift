@@ -41,7 +41,7 @@ struct MediaCard: View {
             .frame(width: size.dimension)
         }
         .buttonStyle(PlainButtonStyle())
-        .contextMenu(menu: {
+        .contextMenu {
             Menu("Options") {
                 Button("Add to Queue") {}
                 Button("Add to Playlist") {}
@@ -51,7 +51,7 @@ struct MediaCard: View {
                     Label("Remove", systemImage: "trash")
                 }
             }
-        })
+        }
     }
 }
 
@@ -123,7 +123,7 @@ struct TrackRow: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(PlainButtonStyle())
-        .contextMenu(menu: {
+        .contextMenu {
             Menu("Options") {
                 Button("Add to Queue") {}
                 Button("Add to Playlist") {}
@@ -133,7 +133,7 @@ struct TrackRow: View {
                     Label("Remove", systemImage: "trash")
                 }
             }
-        })
+        }
     }
     
     private func formatDuration(_ interval: TimeInterval) -> String {
@@ -264,28 +264,26 @@ struct TrackArtwork: View {
     }
     
     var body: some View {
-        Group {
-            if let url = artworkURL {
-                AsyncImage(url: url) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                            .frame(width: size, height: size)
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: size, height: size)
-                            .clipped()
-                    case .failure:
-                        placeholder
-                    @unknown default:
-                        placeholder
-                    }
+        if let url = artworkURL {
+            AsyncImage(url: url) { phase in
+                switch phase {
+                case .empty:
+                    ProgressView()
+                        .frame(width: size, height: size)
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: size, height: size)
+                        .clipped()
+                case .failure:
+                    placeholder
+                @unknown default:
+                    placeholder
                 }
-            } else {
-                placeholder
             }
+        } else {
+            placeholder
         }
         .frame(width: size, height: size)
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
