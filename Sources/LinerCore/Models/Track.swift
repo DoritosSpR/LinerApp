@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Track: Identifiable, Codable, Hashable {
-    let id: String
+    public let id: String
     let title: String
     let artist: Artist
     let album: Album?
@@ -30,14 +30,14 @@ enum TrackSource: String, Codable {
 }
 
 public struct Artist: Identifiable, Codable, Hashable {
-    let id: String
+    public let id: String
     let name: String
     let artworkURL: URL?
     let genres: [String]
 }
 
 public struct Album: Identifiable, Codable, Hashable {
-    let id: String
+    public let id: String
     let title: String
     let artist: Artist
     let artworkURL: URL?
@@ -56,7 +56,7 @@ public struct Lyrics: Codable, Hashable {
 }
 
 public struct SyncedLine: Identifiable, Codable, Hashable {
-    let id = UUID()
+    public let id = UUID()
     let time: TimeInterval
     let text: String
     let syllables: [Syllable]?

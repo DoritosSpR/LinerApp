@@ -1,7 +1,7 @@
 import Foundation
 
 public struct Playlist: Identifiable, Codable, Hashable {
-    let id: String
+    public let id: String
     let title: String
     let description: String?
     let artworkURL: URL?
@@ -25,7 +25,7 @@ public struct Playlist: Identifiable, Codable, Hashable {
 }
 
 public struct User: Identifiable, Codable, Hashable {
-    let id: String
+    public let id: String
     let username: String
     let displayName: String
     let avatarURL: URL?
