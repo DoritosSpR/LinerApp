@@ -26,10 +26,9 @@ final class AudioPlayer: ObservableObject {
     }
     
     deinit {
+        // Limpieza síncrona en deinit (sin Task/self)
         if let observer = timeObserver {
-            Task { @MainActor in
-                player?.removeTimeObserver(observer)
-            }
+            player?.removeTimeObserver(observer)
         }
     }
     
@@ -76,7 +75,7 @@ final class AudioPlayer: ObservableObject {
     
     private func setupNowPlayingInfo() {
         var nowPlayingInfo = [String: Any]()
-        nowPlayingInfo[MPMediaItemPropertyPlaybackRate] = 1.0
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 1.0  // ← constante correcta
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
     }
     
@@ -87,7 +86,7 @@ final class AudioPlayer: ObservableObject {
         nowPlayingInfo[MPMediaItemPropertyArtist] = track.artist.name
         nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = duration
         nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = currentTime
-        nowPlayingInfo[MPMediaItemPropertyPlaybackRate] = isPlaying ? 1.0 : 0.0
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = isPlaying ? 1.0 : 0.0  // ← constante correcta
         if let artworkURL = track.artworkURL, let data = try? Data(contentsOf: artworkURL), let image = UIImage(data: data) {
             nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size) { _ in image }
         }
@@ -101,7 +100,13 @@ final class AudioPlayer: ObservableObject {
         currentIndex = startIndex
         currentTrack = track
         
-        let playerItem = AVPlayerItem(url: track.audioURL)
+        // Unwrap audioURL
+        guard let audioURL = track.audioURL else {
+            print("Audio URL is nil for track: \(track.title)")
+            return
+        }
+        
+        let playerItem = AVPlayerItem(url: audioURL)
         player = AVPlayer(playerItem: playerItem)
         
         let interval = CMTime(seconds: 0.1, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
