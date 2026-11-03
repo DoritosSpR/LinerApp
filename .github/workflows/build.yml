@@ -17,9 +17,13 @@ jobs:
           brew trust xtool-org/tap
           brew install xtool
       
-      - name: Build IPA
+      - name: Fix Resources path for SwiftPM
         run: |
-          xtool dev build --ipa
+          # SwiftPM requiere Resources dentro del target
+          cp -r Resources Sources/LinerApp/
+      
+      - name: Build IPA
+        run: xtool dev build --ipa
       
       - name: Upload IPA
         uses: actions/upload-artifact@v4
