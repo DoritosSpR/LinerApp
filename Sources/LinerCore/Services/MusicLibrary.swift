@@ -23,11 +23,11 @@ public final class MusicLibrary: ObservableObject {
     // MARK: - Persistence
     
     private func loadPersistedData() {
-        if let data = UserDefaults.standard.data(forKey: favoritesKey),
+        if let data = UserDefaults.standard.data(forKey: "liner.favorites"),
            let decoded = try? JSONDecoder().decode([Track].self, from: data) {
             favorites = decoded
         }
-        if let data = UserDefaults.standard.data(forKey: recentlyPlayedKey),
+        if let data = UserDefaults.standard.data(forKey: "liner.recentlyPlayed"),
            let decoded = try? JSONDecoder().decode([Track].self, from: data) {
             recentlyPlayed = decoded
         }
@@ -35,13 +35,13 @@ public final class MusicLibrary: ObservableObject {
     
     private func saveFavorites() {
         if let data = try? JSONEncoder().encode(favorites) {
-            UserDefaults.standard.set(data, forKey: favoritesKey)
+            UserDefaults.standard.set(data, forKey: "liner.favorites")
         }
     }
     
     private func saveRecentlyPlayed() {
         if let data = try? JSONEncoder().encode(recentlyPlayed) {
-            UserDefaults.standard.set(data, forKey: recentlyPlayedKey)
+            UserDefaults.standard.set(data, forKey: "liner.recentlyPlayed")
         }
     }
     
@@ -75,6 +75,38 @@ public final class MusicLibrary: ObservableObject {
         recentlyPlayed.insert(track, at: 0)
         if recentlyPlayed.count > 50 { recentlyPlayed = Array(recentlyPlayed.prefix(50)) }
         saveRecentlyPlayed()
+    }
+    
+    // MARK: - Search Methods (for SearchService)
+    
+    public func searchTracks(query: String) -> [Track] {
+        let lowercased = query.lowercased()
+        return tracks.filter { $0.title.lowercased().contains(lowercased) || $0.artist.name.lowercased().contains(lowercased) }
+    }
+    
+    public func searchArtists(query: String) -> [Artist] {
+        let lowercased = query.lowercased()
+        return artists.filter { $0.name.lowercased().contains(lowercased) }
+    }
+    
+    public func searchAlbums(query: String) -> [Album] {
+        let lowercased = query.lowercased()
+        return albums.filter { $0.title.lowercased().contains(lowercased) }
+    }
+    
+    public func searchPlaylists(query: String) -> [Playlist] {
+        let lowercased = query.lowercased()
+        return playlists.filter { $0.title.lowercased().contains(lowercased) }
+    }
+    
+    // Generic search (existing)
+    public func search(query: String) -> SearchResults {
+        let lowercased = query.lowercased()
+        let tracksResult = tracks.filter { $0.title.lowercased().contains(lowercased) || $0.artist.name.lowercased().contains(lowercased) }
+        let artistsResult = artists.filter { $0.name.lowercased().contains(lowercased) }
+        let albumsResult = albums.filter { $0.title.lowercased().contains(lowercased) }
+        let playlistsResult = playlists.filter { $0.title.lowercased().contains(lowercased) }
+        return SearchResults(tracks: tracksResult, artists: artistsResult, albums: albumsResult, playlists: playlistsResult)
     }
     
     // MARK: - Sample Data
@@ -161,7 +193,7 @@ public final class MusicLibrary: ObservableObject {
                 duration: 312,
                 artworkURL: nil,
                 audioURL: nil,
-                lyrics: lyrics3,
+                lyrics: Lyrics(plain: "Eventually, we all find our way..."),
                 trackNumber: 3,
                 discNumber: 1,
                 isExplicit: false,
@@ -211,8 +243,29 @@ public final class MusicLibrary: ObservableObject {
         recentlyPlayed = Array(sampleTracks.prefix(3))
     }
     
-    // MARK: - Search
+    // MARK: - Search Methods (for SearchService)
     
+    public func searchTracks(query: String) -> [Track] {
+        let lowercased = query.lowercased()
+        return tracks.filter { $0.title.lowercased().contains(lowercased) || $0.artist.name.lowercased().contains(lowercased) }
+    }
+    
+    public func searchArtists(query: String) -> [Artist] {
+        let lowercased = query.lowercased()
+        return artists.filter { $0.name.lowercased().contains(lowercased) }
+    }
+    
+    public func searchAlbums(query: String) -> [Album] {
+        let lowercased = query.lowercased()
+        return albums.filter { $0.title.lowercased().contains(lowercased) }
+    }
+    
+    public func searchPlaylists(query: String) -> [Playlist] {
+        let lowercased = query.lowercased()
+        return playlists.filter { $0.title.lowercased().contains(lowercased) }
+    }
+    
+    // Generic search (existing)
     public func search(query: String) -> SearchResults {
         let lowercased = query.lowercased()
         let tracksResult = tracks.filter { $0.title.lowercased().contains(lowercased) || $0.artist.name.lowercased().contains(lowercased) }
@@ -221,11 +274,4 @@ public final class MusicLibrary: ObservableObject {
         let playlistsResult = playlists.filter { $0.title.lowercased().contains(lowercased) }
         return SearchResults(tracks: tracksResult, artists: artistsResult, albums: albumsResult, playlists: playlistsResult)
     }
-}
-
-public struct SearchResults {
-    public let tracks: [Track]
-    public let artists: [Artist]
-    public let albums: [Album]
-    public let playlists: [Playlist]
 }
