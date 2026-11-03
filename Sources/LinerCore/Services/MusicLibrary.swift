@@ -1,333 +1,231 @@
 import Foundation
 import Combine
 
-@MainActor public final class MusicLibrary: ObservableObject {
-    static let shared = MusicLibrary()
-
-    @Published private(set) var tracks: [Track] = []
-    @Published private(set) var playlists: [Playlist] = []
-    @Published private(set) var artists: [Artist] = []
-    @Published private(set) var albums: [Album] = []
-    @Published private(set) var recentlyPlayed: [Track] = []
-    @Published private(set) var favorites: [Track] = []
-
-    private let userDefaults = UserDefaults.standard
-    private let tracksKey = "liner.tracks"
-    private let playlistsKey = "liner.playlists"
-    private let recentlyPlayedKey = "liner.recentlyPlayed"
+@MainActor
+public final class MusicLibrary: ObservableObject {
+    public static let shared = MusicLibrary()
+    
+    @Published public private(set) var tracks: [Track] = []
+    @Published public private(set) var albums: [Album] = []
+    @Published public private(set) var artists: [Artist] = []
+    @Published public private(set) var playlists: [Playlist] = []
+    @Published public private(set) var favorites: [Track] = []
+    @Published public private(set) var recentlyPlayed: [Track] = []
+    
     private let favoritesKey = "liner.favorites"
-
+    private let recentlyPlayedKey = "liner.recentlyPlayed"
+    
     private init() {
         loadPersistedData()
-        if tracks.isEmpty {
-            loadSampleData()
-        }
+        if tracks.isEmpty { createSampleData() }
     }
-
+    
     // MARK: - Persistence
-
+    
     private func loadPersistedData() {
-        if let data = userDefaults.data(forKey: tracksKey),
-           let decoded = try? JSONDecoder().decode([Track].self, from: data) {
-            tracks = decoded
-        }
-
-        if let data = userDefaults.data(forKey: playlistsKey),
-           let decoded = try? JSONDecoder().decode([Playlist].self, from: data) {
-            playlists = decoded
-        }
-
-        if let data = userDefaults.data(forKey: recentlyPlayedKey),
-           let decoded = try? JSONDecoder().decode([Track].self, from: data) {
-            recentlyPlayed = decoded
-        }
-
-        if let data = userDefaults.data(forKey: favoritesKey),
+        if let data = UserDefaults.standard.data(forKey: favoritesKey),
            let decoded = try? JSONDecoder().decode([Track].self, from: data) {
             favorites = decoded
         }
-
-        rebuildDerivedCollections()
-    }
-
-    private func saveTracks() {
-        if let encoded = try? JSONEncoder().encode(tracks) {
-            userDefaults.set(encoded, forKey: tracksKey)
+        if let data = UserDefaults.standard.data(forKey: recentlyPlayedKey),
+           let decoded = try? JSONDecoder().decode([Track].self, from: data) {
+            recentlyPlayed = decoded
         }
     }
-
-    private func savePlaylists() {
-        if let encoded = try? JSONEncoder().encode(playlists) {
-            userDefaults.set(encoded, forKey: playlistsKey)
-        }
-    }
-
-    private func saveRecentlyPlayed() {
-        if let encoded = try? JSONEncoder().encode(recentlyPlayed) {
-            userDefaults.set(encoded, forKey: recentlyPlayedKey)
-        }
-    }
-
+    
     private func saveFavorites() {
-        if let encoded = try? JSONEncoder().encode(favorites) {
-            userDefaults.set(encoded, forKey: favoritesKey)
+        if let data = try? JSONEncoder().encode(favorites) {
+            UserDefaults.standard.set(data, forKey: favoritesKey)
         }
     }
-
-    private func rebuildDerivedCollections() {
-        var artistDict: [String: Artist] = [:]
-        var albumDict: [String: Album] = [:]
-
-        for track in tracks {
-            artistDict[track.artist.id] = track.artist
-            if let album = track.album {
-                albumDict[album.id] = album
-            }
-        }
-
-        artists = Array(artistDict.values).sorted { $0.name < $1.name }
-        albums = Array(albumDict.values).sorted { $0.title < $1.title }
-    }
-
-    // MARK: - Track Management
-
-    func addTrack(_ track: Track) {
-        tracks.append(track)
-        saveTracks()
-        rebuildDerivedCollections()
-    }
-
-    func addTracks(_ newTracks: [Track]) {
-        tracks.append(contentsOf: newTracks)
-        saveTracks()
-        rebuildDerivedCollections()
-    }
-
-    func removeTrack(_ track: Track) {
-        tracks.removeAll { $0.id == track.id }
-        saveTracks()
-        rebuildDerivedCollections()
-    }
-
-    func updateTrack(_ track: Track) {
-        if let index = tracks.firstIndex(where: { $0.id == track.id }) {
-            tracks[index] = track
-            saveTracks()
+    
+    private func saveRecentlyPlayed() {
+        if let data = try? JSONEncoder().encode(recentlyPlayed) {
+            UserDefaults.standard.set(data, forKey: recentlyPlayedKey)
         }
     }
-
-    // MARK: - Recently Played
-
-    func addToRecentlyPlayed(_ track: Track) {
-        recentlyPlayed.removeAll { $0.id == track.id }
-        recentlyPlayed.insert(track, at: 0)
-        if recentlyPlayed.count > 50 {
-            recentlyPlayed = Array(recentlyPlayed.prefix(50))
-        }
-        saveRecentlyPlayed()
-    }
-
+    
     // MARK: - Favorites
-
-    func toggleFavorite(_ track: Track) {
+    
+    public func toggleFavorite(_ track: Track) {
         if let index = favorites.firstIndex(where: { $0.id == track.id }) {
             favorites.remove(at: index)
-            _ = track
-            // Can't mutate, need to create new - handled in UI
         } else {
-            favorites.insert(track, at: 0)
+            var updatedTrack = track
+            updatedTrack = Track(
+                id: track.id, title: track.title, artist: track.artist, album: track.album,
+                duration: track.duration, artworkURL: track.artworkURL, audioURL: track.audioURL,
+                lyrics: track.lyrics, trackNumber: track.trackNumber, discNumber: track.discNumber,
+                isExplicit: track.isExplicit, isFavorite: true, dateAdded: track.dateAdded,
+                playCount: track.playCount, source: track.source
+            )
+            favorites.insert(updatedTrack, at: 0)
         }
         saveFavorites()
     }
-
-    func isFavorite(_ track: Track) -> Bool {
+    
+    public func isFavorite(_ track: Track) -> Bool {
         favorites.contains { $0.id == track.id }
     }
-
-    // MARK: - Playlists
-
-    func createPlaylist(_ playlist: Playlist) {
-        playlists.append(playlist)
-        savePlaylists()
+    
+    // MARK: - Recently Played
+    
+    public func addToRecentlyPlayed(_ track: Track) {
+        recentlyPlayed.removeAll { $0.id == track.id }
+        recentlyPlayed.insert(track, at: 0)
+        if recentlyPlayed.count > 50 { recentlyPlayed = Array(recentlyPlayed.prefix(50)) }
+        saveRecentlyPlayed()
     }
-
-    func updatePlaylist(_ playlist: Playlist) {
-        if let index = playlists.firstIndex(where: { $0.id == playlist.id }) {
-            playlists[index] = playlist
-            savePlaylists()
-        }
-    }
-
-    func deletePlaylist(_ playlist: Playlist) {
-        playlists.removeAll { $0.id == playlist.id }
-        savePlaylists()
-    }
-
-    func addTrackToPlaylist(_ track: Track, playlist: Playlist) {
-        var updatedPlaylist = playlist
-        var updatedTracks = playlist.tracks
-        if !updatedTracks.contains(where: { $0.id == track.id }) {
-            updatedTracks.append(track)
-            updatedPlaylist = Playlist(
-                id: playlist.id,
-                title: playlist.title,
-                description: playlist.description,
-                artworkURL: playlist.artworkURL,
-                tracks: updatedTracks,
-                owner: playlist.owner,
-                isPublic: playlist.isPublic,
-                isCollaborative: playlist.isCollaborative,
-                trackCount: updatedTracks.count,
-                totalDuration: updatedTracks.reduce(0) { $0 + $1.duration },
-                dateCreated: playlist.dateCreated,
-                dateModified: Date()
-            )
-            updatePlaylist(updatedPlaylist)
-        }
-    }
-
-    // MARK: - Search
-
-    func searchTracks(query: String) -> [Track] {
-        guard !query.isEmpty else { return tracks }
-
-        let lowercased = query.lowercased()
-        return tracks.filter { track in
-            track.title.lowercased().contains(lowercased) ||
-            track.artist.name.lowercased().contains(lowercased) ||
-            track.album?.title.lowercased().contains(lowercased) == true
-        }
-    }
-
-    func searchArtists(query: String) -> [Artist] {
-        guard !query.isEmpty else { return artists }
-
-        let lowercased = query.lowercased()
-        return artists.filter { $0.name.lowercased().contains(lowercased) }
-    }
-
-    func searchAlbums(query: String) -> [Album] {
-        guard !query.isEmpty else { return albums }
-
-        let lowercased = query.lowercased()
-        return albums.filter { $0.title.lowercased().contains(lowercased) }
-    }
-
-    func searchPlaylists(query: String) -> [Playlist] {
-        guard !query.isEmpty else { return playlists }
-
-        let lowercased = query.lowercased()
-        return playlists.filter { $0.title.lowercased().contains(lowercased) }
-    }
-
+    
     // MARK: - Sample Data
-
-    private func loadSampleData() {
-        let sampleArtist = Artist(
+    
+    private func createSampleData() {
+        let tameImpala = Artist(
             id: "artist-1",
             name: "Tame Impala",
             artworkURL: nil,
-            genres: ["Psychedelic Rock", "Electronic"]
+            genres: ["Psychedelic Rock", "Electronic"],
+            biography: "Australian psychedelic music project led by Kevin Parker."
         )
-
+        
+        let currents = Artist(
+            id: "artist-2",
+            name: "The Currents",
+            artworkURL: nil,
+            genres: ["Indie Rock"],
+            biography: "Australian indie rock band from Perth."
+        )
+        
         let sampleAlbum = Album(
             id: "album-1",
-            title: "Currents",
-            artist: sampleArtist,
+            title: "The Slow Rush",
+            artist: tameImpala,
             artworkURL: nil,
             releaseDate: Date(),
-            trackCount: 13
+            trackCount: 12,
+            genre: "Psychedelic Rock"
         )
-
+        
+        let lyrics1 = Lyrics(synced: [
+            SyncedLine(time: 5.2, text: "All this running around"),
+            SyncedLine(time: 10.1, text: "I can't fight it long")
+        ])
+        
+        let lyrics2 = Lyrics(synced: [
+            SyncedLine(time: 3.1, text: "Someone said they left together"),
+            SyncedLine(time: 8.2, text: "I ran out the door to get her")
+        ])
+        
+        let lyrics3 = Lyrics(plain: "Eventually, we all find our way...")
+        
         let sampleTracks = [
             Track(
                 id: "track-1",
                 title: "Let It Happen",
-                artist: sampleArtist,
+                artist: tameImpala,
                 album: sampleAlbum,
-                duration: 465,
+                duration: 463,
                 artworkURL: nil,
                 audioURL: nil,
-                source: .local,
-                lyrics: Lyrics(
-                    synced: [
-                        SyncedLine(time: 5.2, text: "All this running around", syllables: nil),
-                        SyncedLine(time: 10.1, text: "I can't fight it long", syllables: nil),
-                        SyncedLine(time: 15.3, text: "Something is happening", syllables: nil),
-                        SyncedLine(time: 20.0, text: "I can't fight this feeling", syllables: nil),
-                    ],
-                    plain: "All this running around\nI can't fight it long\nSomething is happening\nI can't fight this feeling",
-                    language: "en"
-                ),
-                playCount: 1234,
+                lyrics: lyrics1,
+                trackNumber: 1,
+                discNumber: 1,
+                isExplicit: false,
                 isFavorite: true,
-                dateAdded: Date()
+                dateAdded: Date(),
+                playCount: 1234,
+                source: .local
             ),
             Track(
                 id: "track-2",
                 title: "The Less I Know The Better",
-                artist: sampleArtist,
+                artist: tameImpala,
                 album: sampleAlbum,
                 duration: 216,
                 artworkURL: nil,
                 audioURL: nil,
-                source: .local,
-                lyrics: Lyrics(
-                    synced: [
-                        SyncedLine(time: 3.1, text: "Someone said they left together", syllables: nil),
-                        SyncedLine(time: 8.2, text: "I ran out the door to get her", syllables: nil),
-                        SyncedLine(time: 13.0, text: "She was holding hands with Trevor", syllables: nil),
-                        SyncedLine(time: 18.5, text: "Not the greatest feeling ever", syllables: nil),
-                    ],
-                    plain: nil,
-                    language: "en"
-                ),
-                playCount: 5678,
-                isFavorite: true,
-                dateAdded: Date()
+                lyrics: lyrics2,
+                trackNumber: 2,
+                discNumber: 1,
+                isExplicit: false,
+                isFavorite: false,
+                dateAdded: Date(),
+                playCount: 987,
+                source: .local
             ),
             Track(
                 id: "track-3",
                 title: "Eventually",
-                artist: sampleArtist,
+                artist: tameImpala,
                 album: sampleAlbum,
-                duration: 324,
+                duration: 312,
                 artworkURL: nil,
                 audioURL: nil,
-                source: .local,
-                lyrics: nil,
-                playCount: 987,
+                lyrics: lyrics3,
+                trackNumber: 3,
+                discNumber: 1,
+                isExplicit: false,
                 isFavorite: false,
-                dateAdded: Date()
+                dateAdded: Date(),
+                playCount: 876,
+                source: .local
+            ),
+            Track(
+                id: "track-4",
+                title: "Let Me Down Easy",
+                artist: currents,
+                album: nil,
+                duration: 245,
+                artworkURL: nil,
+                audioURL: nil,
+                lyrics: nil,
+                trackNumber: nil,
+                discNumber: nil,
+                isExplicit: false,
+                isFavorite: false,
+                dateAdded: Date(),
+                playCount: 456,
+                source: .local
             )
         ]
-
+        
         tracks = sampleTracks
-        artists = [sampleArtist]
         albums = [sampleAlbum]
-
+        artists = [tameImpala, currents]
+        
+        let currentUser = User(id: "user-1", username: "liner_user", displayName: "Liner User")
+        
         let samplePlaylist = Playlist(
             id: "playlist-1",
             title: "Favorites",
-            description: "My favorite tracks",
+            description: "Your favorite tracks",
             artworkURL: nil,
             tracks: sampleTracks.filter { $0.isFavorite },
-            owner: nil,
+            owner: currentUser,
             isPublic: false,
-            isCollaborative: false,
-            trackCount: 2,
-            totalDuration: 681,
-            dateCreated: Date(),
-            dateModified: Date()
+            isCollaborative: false
         )
-
+        
         playlists = [samplePlaylist]
         favorites = sampleTracks.filter { $0.isFavorite }
         recentlyPlayed = Array(sampleTracks.prefix(3))
-
-        saveTracks()
-        savePlaylists()
-        saveFavorites()
-        saveRecentlyPlayed()
     }
+    
+    // MARK: - Search
+    
+    public func search(query: String) -> SearchResults {
+        let lowercased = query.lowercased()
+        let tracksResult = tracks.filter { $0.title.lowercased().contains(lowercased) || $0.artist.name.lowercased().contains(lowercased) }
+        let artistsResult = artists.filter { $0.name.lowercased().contains(lowercased) }
+        let albumsResult = albums.filter { $0.title.lowercased().contains(lowercased) }
+        let playlistsResult = playlists.filter { $0.title.lowercased().contains(lowercased) }
+        return SearchResults(tracks: tracksResult, artists: artistsResult, albums: albumsResult, playlists: playlistsResult)
+    }
+}
+
+public struct SearchResults {
+    public let tracks: [Track]
+    public let artists: [Artist]
+    public let albums: [Album]
+    public let playlists: [Playlist]
 }
