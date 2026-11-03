@@ -99,7 +99,8 @@ public final class MusicLibrary: ObservableObject {
         return playlists.filter { $0.title.lowercased().contains(lowercased) }
     }
     
-    // Generic search (existing)
+    // MARK: - Generic Search
+    
     public func search(query: String) -> SearchResults {
         let lowercased = query.lowercased()
         let tracksResult = tracks.filter { $0.title.lowercased().contains(lowercased) || $0.artist.name.lowercased().contains(lowercased) }
@@ -242,36 +243,11 @@ public final class MusicLibrary: ObservableObject {
         favorites = sampleTracks.filter { $0.isFavorite }
         recentlyPlayed = Array(sampleTracks.prefix(3))
     }
-    
-    // MARK: - Search Methods (for SearchService)
-    
-    public func searchTracks(query: String) -> [Track] {
-        let lowercased = query.lowercased()
-        return tracks.filter { $0.title.lowercased().contains(lowercased) || $0.artist.name.lowercased().contains(lowercased) }
-    }
-    
-    public func searchArtists(query: String) -> [Artist] {
-        let lowercased = query.lowercased()
-        return artists.filter { $0.name.lowercased().contains(lowercased) }
-    }
-    
-    public func searchAlbums(query: String) -> [Album] {
-        let lowercased = query.lowercased()
-        return albums.filter { $0.title.lowercased().contains(lowercased) }
-    }
-    
-    public func searchPlaylists(query: String) -> [Playlist] {
-        let lowercased = query.lowercased()
-        return playlists.filter { $0.title.lowercased().contains(lowercased) }
-    }
-    
-    // Generic search (existing)
-    public func search(query: String) -> SearchResults {
-        let lowercased = query.lowercased()
-        let tracksResult = tracks.filter { $0.title.lowercased().contains(lowercased) || $0.artist.name.lowercased().contains(lowercased) }
-        let artistsResult = artists.filter { $0.name.lowercased().contains(lowercased) }
-        let albumsResult = albums.filter { $0.title.lowercased().contains(lowercased) }
-        let playlistsResult = playlists.filter { $0.title.lowercased().contains(lowercased) }
-        return SearchResults(tracks: tracksResult, artists: artistsResult, albums: albumsResult, playlists: playlistsResult)
-    }
+}
+
+public struct SearchResults {
+    public let tracks: [Track]
+    public let artists: [Artist]
+    public let albums: [Album]
+    public let playlists: [Playlist]
 }
